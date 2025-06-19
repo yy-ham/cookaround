@@ -1,0 +1,9 @@
+#form-container {
+    margin: 10%;
+    border: 1px solid black;
+}
+
+.error-text, #form-email {
+    display: none;
+    color: red;
+}
