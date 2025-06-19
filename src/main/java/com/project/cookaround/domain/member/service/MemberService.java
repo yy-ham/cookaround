@@ -23,16 +23,14 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public Long join(Member member) {
         System.out.println("<Service>");
-        validateDuplicateMemberByLoginId(member); // 중복 아이디 검증
+        validateDuplicateMemberByLoginId(member.getLoginId()); // 중복 아이디 검증
         validateDuplicateMemberByEmail(member); // 중복 이메일 검증
         memberRepository.save(member);
         return member.getId();
     }
 
-    public void validateDuplicateMemberByLoginId(Member member) {
-        if (memberRepository.findByLoginId(member.getLoginId()).isPresent()) {
-            throw new IllegalStateException("이미 존재하는 아이디입니다.");
-        }
+    public boolean validateDuplicateMemberByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId).isPresent();
     }
 
     public void validateDuplicateMemberByEmail(Member member) {
