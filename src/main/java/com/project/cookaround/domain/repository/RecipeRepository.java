@@ -2,20 +2,30 @@ package com.project.cookaround.domain.repository;
 
 import com.project.cookaround.domain.entity.Recipe;
 import com.project.cookaround.domain.entity.RecipeCategory;
-import org.springframework.data.jpa.repository.JpaRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    List<Recipe> findByCategory(RecipeCategory category);
+@Repository
+public class RecipeRepository {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    // == 레시피 목록 띄우기 == //
+    public List<Recipe> findAll() {
+        return em.createQuery("SELECT r FROM Recipe r", Recipe.class)
+                .getResultList();
+    }
+
+    // == 카테고리에 따른 목록 띄우기 == //
+    public List<Recipe> findByCategory(String category) {
+        return em.createQuery("SELECT r FROM Recipe r WHERE r.category = :category", Recipe.class)
+                .setParameter("category", RecipeCategory.valueOf(category.toUpperCase()))
+                .getResultList();
+    }
 
 
-/*  == jpa가 자동으로 제공하는 기능 ==
-    save(entity)	저장 (insert 또는 update)
-    findById(id)	ID로 조회
-    findAll()	전체 조회
-    deleteById(id)	ID로 삭제
-    count()	전체 개수 조회
-    existsById(id)	존재 여부 확인
-*/
 }
