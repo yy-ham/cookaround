@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQuery CDN 추가 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>레시피 목록</title>
+</head>
+<body>
+    <h2>레시피 목록</h2>
+
+    <header class="header">
+        <div class="top-bar">
+            <nav class="nav">
+                <a href="#">레시피</a>
+                <a href="#">냉장고파먹기</a>
+                <a href="#">요리팁</a>
+                <a href="#">식재료</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- append할 카드 -->
+    <!-- template를 써서 카테고리 선택이나 정렬할 때 js에서 한번에 관리하고 싶은데
+        script 태그가 div 안에 들어가있으면 오류나서 body 바로 밑으로 놔두니 해결 -->
+    <script type="text/template" id="recipe-list-template">
+        <div class="col" style="padding: 1%;">
+            <div class="card" style="height: 100%; padding: 4% 7%;">
+                <img class="card-img" style="height: 160px; border: solid 1px blue;">
+                <h5 class="card-title" style="margin-top: 5%;"></h5>
+                <h5 class="card-memberId"></h5>
+                <div>
+                    <span>⭐ 4.5 (112)</span>
+                    <button>🤍</button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <main class="main-content" style="margin: 10%; border: solid 1px red;">
+        <section class="category-section">
+            <button data-category="ALL">전체</button>
+            <button data-category="KOREAN">한식</button>
+            <button data-category="WESTERN">양식</button>
+            <button data-category="JAPANESE">일식</button>
+            <button data-category="CHINESE">중식</button>
+            <button data-category="DESSERT">디저트</button>
+            <button data-category="OTHER">기타</button>
+        </section>
+        <br>
+        <section class="sort">
+            <button>최신순</button>
+            <button>조회순</button>
+            <button>추천많은순</button>
+        </section>
+
+        <section class="recipe-list" id="recipe-list">
+            <div class="row row-cols-5">
+                <!-- 카드가 동적으로 이 자리에 append됨 -->
+            </div>
+
+
+            <!-- 카드 5개씩 반복 -->
+            <!--<div class="row row-cols-5">
+                <div class="col" th:each="recipe:${recipeList}" style="padding: 1%;">
+                    <div class="card" style="height: 100%; padding: 4% 7%;">
+                        <img th:src="'https://i.namu.wiki/i/4-iX1WOxRnJOYQXM1IzJYwAeHtDRGv4HnO6xR0s6ZpsiltAmpO_RC7oyPXy9vIOYrFjapiqUhgZFH0O96h8g4w.webp'"
+                             style="height: 160px; border: solid 1px blue;">
+                        <h5 th:text="${recipe.title}" style="margin-top: 5%;">제목</h5>
+                        <h5 th:text="${recipe.id}">아이디</h5>
+                        <div>
+                            <span>⭐ 4.5 (112)</span>
+                            <button>🤍</button>
+                        </div>
+                    </div>
+                </div>
+                &lt;!&ndash; 카드 5개 아닐 경우 빈칸 출력 &ndash;&gt;
+                <div class="col" th:if="${recipeList.size()%5 != 0}"
+                     th:each="i : ${#numbers.sequence(1, 5 - (recipeList.size()%5))}">
+                    <div style="visibility: hidden; height: 100%;"></div>
+                </div>
+            </div>-->
+        </section>
+    </main>
+
+
+
+    <!-- js 파일 연결 -->
+    <script src="/js/recipe.js"></script>
+</body>
+</html>
