@@ -3,6 +3,7 @@ $(function () {
     $(document).on("blur", "#login-id", validateLoginId);
     $(document).on("blur", "#password", validatePassword);
     $(document).on("blur", "#password-check", validatePasswordCheck);
+    $(document).on("blur", "#email", validateEmail);
 
 
     // 아이디 유효성 검사
@@ -93,6 +94,66 @@ $(function () {
         if (passwordCheck !== password) {
             $("#password-check-error-text").text("비밀번호와 일치하지 않습니다. 다시 입력해 주세요.").show();
         }
+    }
+
+
+    // 이메일 유효성 검사
+    function validateEmail() {
+        let isValidEmail = false;
+        let email = $("#email").val();
+        $("#email-error-text").hide();
+
+        if (!checkRequiredEmail(email)) {
+            return;
+        }
+        if (!checkFormatEmail(email)) {
+            return;
+        }
+        if (checkDuplicateEmail(email)) {
+            return;
+        }
+
+        isValidEmail = true;
+        return isValidEmail;
+    }
+
+    // 이메일 입력 여부 확인
+    function checkRequiredEmail(email) {
+        if (email === "") {
+            $("#email-error-text").text("이메일: 필수 정보입니다.").show();
+            return false;
+        }
+        return true;
+    }
+
+    // 이메일 형식 검사
+    function checkFormatEmail(email) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            $("#email-error-text").text("이메일 주소가 정확한지 확인해 주세요.").show();
+            return false;
+        }
+        return true;
+    }
+
+    // 이메일 중복 검사
+    function checkDuplicateEmail(email) {
+        let isDuplicateEmail = false;
+        $.ajax({
+            url: "/member/check-email",
+            type: "GET",
+            async: false,
+            data: {
+                email: email
+            },
+            success: function (isDuplicate) {
+                if (isDuplicate) {
+                    $("#email-error-text").text("이미 가입된 이메일입니다.").show();
+                    isDuplicateEmail = isDuplicate;
+                }
+            },
+        });
+        return isDuplicateEmail;
     }
 
 });

@@ -24,7 +24,7 @@ public class MemberService implements UserDetailsService {
     public Long join(Member member) {
         System.out.println("<Service>");
         validateDuplicateMemberByLoginId(member.getLoginId()); // 중복 아이디 검증
-        validateDuplicateMemberByEmail(member); // 중복 이메일 검증
+        validateDuplicateMemberByEmail(member.getEmail()); // 중복 이메일 검증
         memberRepository.save(member);
         return member.getId();
     }
@@ -33,10 +33,8 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findByLoginId(loginId).isPresent();
     }
 
-    public void validateDuplicateMemberByEmail(Member member) {
-        if (memberRepository.findByEmail(member.getEmail()).isPresent()) {
-            throw new IllegalStateException("이미 존재하는 이메일입니다.");
-        }
+    public boolean validateDuplicateMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).isPresent();
     }
 
     @Override

@@ -35,4 +35,10 @@ public class MemberController {
         return memberService.validateDuplicateMemberByLoginId(loginId);
     }
 
+    @ResponseBody
+    @GetMapping("/check-email")
+    public boolean checkDuplicateEmail(@RequestParam(name = "email") String email) {
+        return memberService.validateDuplicateMemberByEmail(email);
+    }
+
 }
