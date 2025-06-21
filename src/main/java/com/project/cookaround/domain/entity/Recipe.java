@@ -46,20 +46,4 @@ public class Recipe {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    /*
-    보통 createdAt 과 updatedAt 은 DB에서 자동 생성 또는 업데이트하거나,
-    JPA의 @PrePersist, @PreUpdate 콜백으로 관리합니다.
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }*/
-
-
 }
