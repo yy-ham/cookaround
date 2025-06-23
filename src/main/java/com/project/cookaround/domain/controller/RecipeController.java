@@ -1,12 +1,11 @@
 package com.project.cookaround.domain.controller;
 
-import com.project.cookaround.domain.entity.Recipe;
+import com.project.cookaround.domain.dto.RecipeDto;
 import com.project.cookaround.domain.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,30 +17,27 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
-    // 레시피 목록 조회
     @GetMapping("/recipe/list")
-    public String showRecipeList(Model model) {
-        List<Recipe> recipeList = recipeService.findAll();
-        model.addAttribute("recipeList", recipeList);
+    public String recipeList(Model model) {
+        List<RecipeDto> recipes = recipeService.showRecipeList();
+        model.addAttribute("recipes",recipes);
         return "recipe/list";
     }
 
-    // 카테고리에 따른 목록 조회(Ajax)
+
+    // 레시피 목록 페이지(Ajax)
     @GetMapping("/recipe/api/list")
     @ResponseBody
-    public List<Recipe> showRecipeListJson(@RequestParam(required = false) String category) {
-        if(category == null || category.equals("ALL")) {
-            return recipeService.findAll();
-        }
-        return recipeService.findByCategory(category);
+    public List<RecipeDto> recipeListJson(@RequestParam(defaultValue = "ALL") String category,
+                                          @RequestParam(defaultValue = "newest") String sort) {
+        return recipeService.showRecipeListJson(category, sort);
     }
 
-    // 레시피 상세페이지 조회
+
+    // 레시피 상세 페이지
     @GetMapping("/recipe/detail")
-    public String recipeDetail(@RequestParam("id") Long id, Model model) {
-        Recipe recipe = recipeService.findById(id);
-        model.addAttribute("recipe", recipe);
-        return "recipe/detail";
+    public String showRecipeDetail(String recipeId) {
+        return recipeService.showRecipeDetail(recipeId);
     }
 
 }

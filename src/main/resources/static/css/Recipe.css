@@ -1,0 +1,34 @@
+
+/* card */
+.recipe-card {
+    height: 100%;
+    padding: 4% 7%;
+    cursor: pointer;
+}
+
+.card-img {
+    height: 160px;
+    border: solid 1px blue;
+}
+
+.card-title {
+    margin-top: 5%;
+}
+
+.member-section {
+    display: flex;
+    align-items: center;
+    margin: 5% 0;
+}
+
+.member-section .card-profile {
+    border: solid 1px red;
+    margin-right: 2%;
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.review-section .review-avg {
+    margin-right: 2%;
+}

@@ -1,7 +1,7 @@
 package com.project.cookaround.domain.service;
 
-import com.project.cookaround.domain.entity.Recipe;
-import com.project.cookaround.domain.repository.RecipeRepository;
+import com.project.cookaround.domain.dto.RecipeDto;
+import com.project.cookaround.domain.mapper.RecipeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +11,20 @@ import java.util.List;
 @Service
 public class RecipeService {
 
-    private final RecipeRepository recipeRepository;
+    private final RecipeMapper recipeMapper;
 
-    // 레시피 목록 조회
-    public List<Recipe> findAll() {
-        return recipeRepository.findAll();
+    public List<RecipeDto> showRecipeList() {
+        return recipeMapper.showRecipeList();
     }
 
-    // 카테고리에 따른 목록 조회
-    public List<Recipe> findByCategory(String category) {
-        return recipeRepository.findByCategory(category);
+    // 레시피 목록 페이지(Ajax)
+    public List<RecipeDto> showRecipeListJson(String category, String sort) {
+        return recipeMapper.showRecipeListJson(category, sort);
     }
 
-    // 레시피 상세페이지 조회
-    public Recipe findById(Long id) {
-        return recipeRepository.findById(id);
+    // 레시피 상세 페이지
+    public String showRecipeDetail(String recipeId) {
+        return recipeMapper.showRecipeDetail(recipeId);
     }
+
 }

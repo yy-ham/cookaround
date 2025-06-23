@@ -1,29 +1,29 @@
-
 $(document).ready(function() {
 
     let category = 'ALL';
-    // let sort = 'newest';
+    let sort = 'newest';
 
-    showRecipeList(category);
+    showRecipeList(category, sort);
 
-    // 카테고리 버튼 클릭 시 비동기 처리
+    // 카테고리 버튼 클릭
     $('.category-section button').click(function() {
         const category = $(this).data('category');
-        showRecipeList(category);
+        showRecipeList(category, sort);
     }); // end of $('.category-section button').click
 
 
-/*    // 정렬 버튼
+    // 정렬 버튼 클릭
     $('.sort-section button').click(function() {
         const sort = $(this).data('sort');
-        showRecipeList(category);
+        showRecipeList(category, sort);
     }); // end of $('.sort-section button').click
-*/
+
 
     // 카드 클릭 시 상세 페이지로 이동
     $(document).on('click', '.recipe-card', function() {
         const recipeId = $(this).data('id');
-        console.log("recipeId: ",recipeId);
+        console.log("recipeId확인: ", recipeId);
+
         if(recipeId) {
             window.location.href = `/recipe/detail?id=${recipeId}`;
         }
@@ -33,11 +33,14 @@ $(document).ready(function() {
 
 
 // 레시피 목록 띄우는 함수
-function showRecipeList(category) {
+function showRecipeList(category, sort) {
     $.ajax({
         url: '/recipe/api/list',
         method: 'GET',
-        data: {category: category},
+        data: {
+            category: category,
+            sort: sort
+        },
         dataType: 'json',
         success: function(data) {
             const $row = $('#recipe-list .row');
@@ -49,7 +52,7 @@ function showRecipeList(category) {
             }
 
             data.forEach(recipe => {
-                const $card = recipeByCategory(recipe);
+                const $card = recipeByButton(recipe);
                 $row.append($card);
             });
         },
@@ -61,8 +64,8 @@ function showRecipeList(category) {
 } // end of function showRecipeList(category)--------------
 
 
-// 카테고리 선택 함수
-function recipeByCategory(recipe) {
+// 버튼(카테고리, 정렬) 클릭 함수
+function recipeByButton(recipe) {
     const template = $('#recipe-list-template').html();
     const $card = $(template); // 문자열을 jQuery 객체로 변환
 
@@ -70,7 +73,10 @@ function recipeByCategory(recipe) {
     
     $card.find('.card-img').attr('src', 'https://i.namu.wiki/i/4-iX1WOxRnJOYQXM1IzJYwAeHtDRGv4HnO6xR0s6ZpsiltAmpO_RC7oyPXy9vIOYrFjapiqUhgZFH0O96h8g4w.webp');
     $card.find('.card-title').text(recipe.title);
+    $card.find('.card-profile').text(recipe.memberProfile);
     $card.find('.card-memberId').text(recipe.memberId);
+    $card.find('.review-avg').text(recipe.avgRating);
+    $card.find('.review-count').text(recipe.reviewCount);
 
     return $card;
 } // end of function recipeByCategory(recipe)-----------------
