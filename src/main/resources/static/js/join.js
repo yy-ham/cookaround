@@ -10,6 +10,9 @@ $(function () {
     });
 
 
+    let isVerifiedEmail = false;
+
+
     // 회원가입 필드 유효성 검사
     $(document).on("blur", "#login-id", validateLoginId);
     $(document).on("blur", "#password", validatePassword);
@@ -19,6 +22,10 @@ $(function () {
     // 이메일 인증
     $(document).on("click", "#email-send-code-btn", sendEmailcode);
     $(document).on("click", "#email-verify-code-btn", verifyEmailCode);
+
+    // 회원가입
+    $(document).on("click", "#join-btn", join);
+    $(document).on("click", "#join-cancel-btn", joinCancel);
 
 
     // 아이디 유효성 검사
@@ -225,6 +232,7 @@ $(function () {
                     $("#email-verify-code-success-text").text("인증 완료").show();
                     $("#email-verify-code-btn").attr("disabled",true);
                     $("#timer").hide();
+                    isVerifiedEmail = true;
                     return;
                 }
 
@@ -263,6 +271,32 @@ $(function () {
             }
             display.text(minutes + ":" + seconds);
         }, 1000);
+    }
+
+
+    // 회원가입
+    function join(e) {
+        e.preventDefault();
+
+        // 최종 유효성 검사
+        validateLoginId();
+        validatePassword();
+        validatePasswordCheck();
+        validateEmail();
+
+        if (!isVerifiedEmail) {
+            return;
+        }
+
+        $("form").submit();
+    }
+
+    // 회원가입 취소
+    function joinCancel(e) {
+        e.preventDefault();
+        if (confirm("회원가입을 취소하시겠습니까? 작성중인 내용은 저장되지 않습니다.")) {
+            location.href = "/";
+        }
     }
 
 });
