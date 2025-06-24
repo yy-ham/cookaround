@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>회원가입</title>
     <link rel="stylesheet" href="/css/join.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
@@ -60,7 +62,7 @@
                     </svg>
                 </label>
                 <input type="email" required="required" id="email" placeholder="이메일" th:field="*{email}">
-                <button type="submit" id="email-check-btn">인증받기</button>
+                <button type="submit" id="email-send-code-btn">인증받기</button>
             </div>
 
             <div>
@@ -68,18 +70,20 @@
             </div>
 
             <!-- 이메일 인증 -->
-            <div id="form-email">
-                <label for="email-check">
+            <div id="form-email-verify">
+                <label for="email-verify-code">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4M4.5 7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7zM8 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
                     </svg>
                 </label>
-                <input type="text" required="required" id="email-check" placeholder="인증번호 6자리 입력">
-                <span>5:00</span>
+                <input type="text" required="required" id="email-verify-code" placeholder="인증번호 6자리 입력">
+                <span id="timer"></span>
+                <button type="submit" id="email-verify-code-btn">확인</button>
             </div>
 
             <div>
-                <div class="error-text" id="email-check-error-text"></div>
+                <div class="error-text" id="email-verify-code-error-text"></div>
+                <div class="success-text" id="email-verify-code-success-text"></div>
             </div>
 
             <br>

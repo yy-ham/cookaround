@@ -1,9 +1,24 @@
 $(function () {
 
+    // AJAX POST 요청 시 CSRF 토큰을 헤더에 포함
+    const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    const csrfToken = $("meta[name='_csrf']").attr("content");
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeader, csrfToken);
+        }
+    });
+
+
+    // 회원가입 필드 유효성 검사
     $(document).on("blur", "#login-id", validateLoginId);
     $(document).on("blur", "#password", validatePassword);
     $(document).on("blur", "#password-check", validatePasswordCheck);
     $(document).on("blur", "#email", validateEmail);
+
+    // 이메일 인증
+    $(document).on("click", "#email-send-code-btn", sendEmailcode);
+    $(document).on("click", "#email-verify-code-btn", verifyEmailCode);
 
 
     // 아이디 유효성 검사
@@ -154,6 +169,100 @@ $(function () {
             },
         });
         return isDuplicateEmail;
+    }
+
+
+    // 이메일 인증코드 전송
+    function sendEmailcode(e) {
+        e.preventDefault();
+
+        let email = $("#email").val();
+
+        // 이메일 유효성 검사 완료 후 이메일 인증 진행
+        if (validateEmail()) {
+            $("#email-verify-code-error-text").hide();
+            $("#form-email-verify").hide();
+
+            $.ajax({
+                url: "/member/send-email-code",
+                type: "POST",
+                data: {
+                    email: email
+                },
+                success: function (isSuccess) {
+                    if (isSuccess == null) {
+                        alert("인증코드 발송에 실패했습니다. 다시 시도해 주세요.");
+                    } else {
+                        alert("이메일이 발송되었습니다.");
+                        $("#form-email-verify").show();
+                        $("#email-verify-code-btn").show();
+                        startTimer();
+                    }
+                },
+            });
+        }
+    }
+
+    // 이메일 인증코드 확인
+    function verifyEmailCode(e) {
+        e.preventDefault();
+
+        let email = $("#email").val();
+        let verificationCode = $("#email-verify-code").val();
+
+        $("#email-verify-code-success-text").hide();
+        $("#email-verify-code-error-text").hide();
+
+        $.ajax({
+            url: "/member/verify-email-code",
+            type: "POST",
+            data: {
+                email: email,
+                verificationCode: verificationCode
+            },
+            success: function (isVerified) {
+                if (isVerified === "SUCCESS") {
+                    $("#email-verify-code-success-text").text("인증 완료").show();
+                    $("#email-verify-code-btn").attr("disabled",true);
+                    $("#timer").hide();
+                    return;
+                }
+
+                if (isVerified === "EXPIRED") {
+                    $("#email-verify-code-btn").hide();
+                    $("#email-verify-code-error-text").text("시간이 만료되었습니다. 인증을 다시 시도해 주세요.").show();
+                    return;
+                }
+
+                if (isVerified === "INVALID") {
+                    $("#email-verify-code-error-text").text("올바른 인증번호를 입력해 주세요.").show();
+                    return;
+                }
+            }
+        });
+    }
+
+    // 이메일 인증코드 타이머
+    function startTimer() {
+        let display = $("#timer");
+        let duration = 60 * 5; //지속 시간
+        let minutes = String(Math.floor(duration / 60)).padStart(2, '0');
+        let seconds = String(duration % 60).padStart(2, '0');
+        display.text(minutes + ":" + seconds);
+
+        let timer = setInterval(function () {
+            duration--;
+            minutes = String(Math.floor(duration / 60)).padStart(2, '0');
+            seconds = String(duration % 60).padStart(2, '0');
+
+            if (duration < 0) {
+                clearInterval(timer);
+                $("#email-verify-code-btn").hide();
+                $("#email-verify-code-error-text").text("시간이 만료되었습니다. 인증을 다시 시도해 주세요.").show();
+                return;
+            }
+            display.text(minutes + ":" + seconds);
+        }, 1000);
     }
 
 });

@@ -1,12 +1,17 @@
 package com.project.cookaround.domain.member.controller;
 
 import com.project.cookaround.domain.member.dto.MemberRequestDto;
+import com.project.cookaround.domain.member.entity.EmailVerificationResult;
+import com.project.cookaround.domain.member.service.EmailVerificationService;
 import com.project.cookaround.domain.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/member")
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final EmailVerificationService emailVerificationService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/join")
@@ -39,6 +45,28 @@ public class MemberController {
     @GetMapping("/check-email")
     public boolean checkDuplicateEmail(@RequestParam(name = "email") String email) {
         return memberService.validateDuplicateMemberByEmail(email);
+    }
+
+    @ResponseBody
+    @PostMapping("/send-email-code")
+    public boolean sendEmailCode(@RequestParam(name = "email") String email, HttpSession session) {
+        String verificationCode = emailVerificationService.sendVerificationEmail(email);
+        if (verificationCode == null) {
+            return false;
+        } else {
+            session.setAttribute("email",email);
+            session.setAttribute("verificationCode", verificationCode);
+            session.setAttribute("issuedAt", LocalDateTime.now());
+            session.setMaxInactiveInterval(60 * 5);
+            return true;
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/verify-email-code")
+    public EmailVerificationResult verifyEmailCode(@RequestParam(name = "email") String email,
+                                                   @RequestParam(name = "verificationCode") String verificationCode, HttpSession session) {
+        return emailVerificationService.verifyVerificationCode(email, verificationCode, session);
     }
 
 }

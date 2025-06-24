@@ -3,7 +3,16 @@
     border: 1px solid black;
 }
 
-.error-text, #form-email {
+.error-text {
     display: none;
     color: red;
+}
+
+#form-email-verify {
+    display: none;
+}
+
+#email-verify-code-success-text {
+    display: none;
+    color: green;
 }
