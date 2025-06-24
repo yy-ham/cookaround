@@ -114,7 +114,7 @@ $(function () {
         $("#password-check-error-text").hide();
 
         if (passwordCheck !== password) {
-            $("#password-check-error-text").text("비밀번호와 일치하지 않습니다. 다시 입력해 주세요.").show();
+            $("#password-check-error-text").text("비밀번호 확인: 비밀번호와 일치하지 않습니다. 다시 입력해 주세요.").show();
         }
     }
 
