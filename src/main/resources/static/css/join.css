@@ -1,8 +1,4 @@
-#form-container {
-    margin: 10%;
-    border: 1px solid black;
-}
-
+/* 회원가입 메시지 */
 .error-text {
     display: none;
     color: red;
@@ -15,4 +11,96 @@
 #email-verify-code-success-text {
     display: none;
     color: green;
+}
+
+
+/* 회원가입 폼 */
+#form-container {
+    margin: 10%;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form-row {
+    margin: 0 auto;
+    height: 50px;
+    width: 30%;
+}
+
+#login-id, #password, #password-check{
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 80%;
+    height: 60%;
+}
+
+#email {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 60%;
+    height: 60%;
+}
+
+#email-verify-code {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 53%;
+    height: 55%;
+}
+
+#timer {
+    margin-left: 2%;
+}
+
+/* 폼 테두리 설정 */
+#form-row-login-id {
+    border: 1px solid black;
+    border-radius: 15px 15px 0px 0px;
+}
+
+#form-row-password {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#form-row-password-check {
+    border: 1px solid black;
+    border-radius: 0px 0px 15px 15px;
+}
+
+#form-row-email {
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+#form-email-verify {
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+
+#timer, .btn, input {
+    font-size: large;
+}
+
+#btn-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 430px;
+}
+
+#join-cancel-btn, #join-btn {
+    margin: 2%;
+}
+
+.message-container {
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
 }
