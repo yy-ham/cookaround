@@ -10,10 +10,10 @@
 
     <!-- 레시피 목록 페이지 -->
     <select id="showRecipeListJson" resultType="com.project.cookaround.domain.dto.RecipeDto">
-        SELECT r.id, r.member_id AS memberId, r.category, r.title, r.view_count AS viewCount, r.created_at AS createdAt,
+        SELECT r.id, m.login_id AS loginId, r.category, r.title, r.view_count AS viewCount, r.created_at AS createdAt,
                m.profile AS memberProfile,
                COALESCE(rv.review_count, 0) AS reviewCount,
-               COALESCE(rv2.avg_rating, 0) AS avgRating
+               round(COALESCE(rv2.avg_rating, 0),1) AS avgRating
         FROM recipe r
         LEFT JOIN member m ON r.member_id = m.id
         LEFT JOIN (
@@ -26,8 +26,9 @@
             FROM review
             GROUP BY recipe_id
         ) rv2 ON r.id = rv2.recipe_id
-        <if test="category != 'ALL'">
-            WHERE r.category = #{category}
+        WHERE 1 = 1
+        <if test="category != null and category != 'ALL'">
+            AND r.category = #{category}
         </if>
         <choose>
             <when test="sort == 'newest'">

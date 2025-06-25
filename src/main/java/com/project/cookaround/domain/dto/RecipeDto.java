@@ -25,6 +25,7 @@ public class RecipeDto {
     private LocalDateTime updatedAt;
 
     private String memberProfile;   // 회원 프로필사진
+    private String loginId;
     private Double avgRating;       // 후기 평균 별점
     private Long reviewCount;       // 후기 개수
 }

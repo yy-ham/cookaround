@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="/css/Recipe.css">
 </head>
 <body>
-    <h2>레시피 목록</h2>
-
     <header class="header">
         <div class="top-bar">
             <nav class="nav">
@@ -27,23 +25,23 @@
         <div class="col" style="padding: 1%;">
             <div class="card recipe-card">
                 <img class="card-img" alt="...">
-                <h5 class="card-title"></h5>
-                <div class="member-section">
+                <span class="card-title"></span>
+                <div class="member-info">
                     <img class="card-profile" alt="...">
-                    <span class="card-memberId"></span>
+                    <span class="card-loginId"></span>
                 </div>
-                <div class="review-section">
-                    <span class="card-rating">⭐
-                        <span class="review-avg"></span>
+                <div class="review-info">
+                    <div class="card-review">
+                        ⭐<span class="review-avg"></span>
                         (<span class="review-count"></span>)
-                    </span>
-                    <button>🤍</button>
+                    </div>
+                    <img class="img-heart" src="/img/heart_empty.png" alt="">
                 </div>
             </div>
         </div>
     </script>
 
-    <main class="main-content" style="margin: 10%; border: solid 1px red;">
+    <main class="main-content">
         <section class="category-section">
             <button data-category="ALL">전체</button>
             <button data-category="KOREAN">한식</button>
@@ -59,11 +57,17 @@
             <button data-sort="views">조회순</button>
             <button data-sort="reviews">후기많은순</button>
         </section>
+        <br>
 
         <section class="recipe-list" id="recipe-list">
             <div class="row row-cols-5">
                 <!-- 카드가 동적으로 이 자리에 append됨 -->
             </div>
+        </section>
+
+        <section class="page-bar">
+
+
         </section>
     </main>
 

@@ -7,14 +7,14 @@ $(document).ready(function() {
 
     // 카테고리 버튼 클릭
     $('.category-section button').click(function() {
-        const category = $(this).data('category');
+        category = $(this).data('category');
         showRecipeList(category, sort);
     }); // end of $('.category-section button').click
 
 
     // 정렬 버튼 클릭
     $('.sort-section button').click(function() {
-        const sort = $(this).data('sort');
+        sort = $(this).data('sort');
         showRecipeList(category, sort);
     }); // end of $('.sort-section button').click
 
@@ -71,12 +71,17 @@ function recipeByButton(recipe) {
 
     $card.find('.recipe-card').attr('data-id', recipe.id); // 레시피 하나를 특정하기 위해 data-id 붙임
     
-    $card.find('.card-img').attr('src', 'https://i.namu.wiki/i/4-iX1WOxRnJOYQXM1IzJYwAeHtDRGv4HnO6xR0s6ZpsiltAmpO_RC7oyPXy9vIOYrFjapiqUhgZFH0O96h8g4w.webp');
+    $card.find('.card-img').attr('src', 'https://newsimg.sedaily.com/2020/11/17/1ZAFYQN80J_1.jpg');
     $card.find('.card-title').text(recipe.title);
+
     $card.find('.card-profile').text(recipe.memberProfile);
-    $card.find('.card-memberId').text(recipe.memberId);
-    $card.find('.review-avg').text(recipe.avgRating);
+    $card.find('.card-loginId').text(recipe.loginId);
+
+    $card.find('.review-avg').text(Number(recipe.avgRating).toFixed(1));
     $card.find('.review-count').text(recipe.reviewCount);
 
     return $card;
 } // end of function recipeByCategory(recipe)-----------------
+
+
+
