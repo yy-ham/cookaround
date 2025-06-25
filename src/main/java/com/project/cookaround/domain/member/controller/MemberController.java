@@ -69,4 +69,21 @@ public class MemberController {
         return emailVerificationService.verifyVerificationCode(email, verificationCode, session);
     }
 
+
+    // 로그인
+    @GetMapping("/login")
+    public String loginForm(Model model, HttpSession session) {
+        if (session.getAttribute("errorMessage") != null) {
+            String loginId = session.getAttribute("loginId").toString();
+            String errorMessage = session.getAttribute("errorMessage").toString();
+
+            model.addAttribute("loginId", loginId);
+            model.addAttribute("errorMessage", errorMessage);
+
+            session.removeAttribute("loginId");
+            session.removeAttribute("errorMessage");
+        }
+        return "member/login";
+    }
+
 }
