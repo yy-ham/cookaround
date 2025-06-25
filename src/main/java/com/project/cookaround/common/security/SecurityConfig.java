@@ -1,6 +1,6 @@
 package com.project.cookaround.common.security;
 
-import com.project.cookaround.domain.member.service.MemberService;
+import com.project.cookaround.domain.member.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MemberService memberService;
+    private final CustomUserDetailsService userDetailsService;
     private final CustomAuthenticationFailureHandler failureHandler;
 
     @Bean
@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
         );
 
-        http.userDetailsService(memberService);
+        http.userDetailsService(userDetailsService);
         return http.build();
     }
 
