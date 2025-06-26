@@ -1,6 +1,5 @@
 package com.project.cookaround.common.security;
 
-import com.project.cookaround.domain.member.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +19,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
     private final CustomAuthenticationFailureHandler failureHandler;
+    private final CustomAuthenticationSuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .loginPage("/member/login")
                 .usernameParameter("login-id")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/")
+                .successHandler(successHandler)
                 .failureHandler(failureHandler)
         );
 

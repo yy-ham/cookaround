@@ -1,8 +1,7 @@
-package com.project.cookaround.domain.member.service;
+package com.project.cookaround.common.security;
 
 import com.project.cookaround.domain.member.entity.Member;
 import com.project.cookaround.domain.member.repository.MemberRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,10 +23,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<Member> member = Optional.ofNullable(memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new UsernameNotFoundException(loginId)));
 
-        return User.builder()
-                .username(member.get().getLoginId())
-                .password(member.get().getPassword())
-                .build();
+        return new CustomUserDetails(
+                member.get().getId(),
+                member.get().getLoginId(),
+                member.get().getPassword()
+        );
     }
 
 }
