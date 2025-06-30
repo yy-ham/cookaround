@@ -15,11 +15,19 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String loginId = request.getParameter("login-id");
+        String savedId = request.getParameter("save-id");
         String errorMessage = "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.";
 
         request.getSession().setAttribute("loginId", loginId);
         request.getSession().setAttribute("errorMessage", errorMessage);
 
+        if (savedId != null) {
+            request.getSession().setAttribute("isSaved", true);
+        } else {
+            request.getSession().removeAttribute("isSaved");
+        }
+
         response.sendRedirect("/member/login");
     }
+
 }
