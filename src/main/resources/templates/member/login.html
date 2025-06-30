@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/css/member/login.css">
+</head>
+<body>
+    <div id="form-container">
+        <h1>로그인</h1>
+
+        <br><br>
+
+        <form action="/member/login" method="post">
+
+            <div class="form-row">
+                <label for="login-id"></label>
+                <input type="text" name="login-id" class="form_content" id="login-id" placeholder="아이디" th:value="${loginId}">
+            </div>
+
+            <div class="form-row" id="form-row-password">
+                <label for="password"></label>
+                <input type="password" name="password" class="form_content" id="password" placeholder="비밀번호">
+            </div>
+
+            <div class="message-container" th:if="${errorMessage}">
+                <div class="error-text" id="login-error-text" th:text="${errorMessage}"></div>
+            </div>
+
+            <br>
+
+            <div class="form-row">
+                <button type="submit" class="btn" id="login-btn">로그인</button>
+            </div>
+
+            <div class="form-row form-row-between">
+                <div>
+                    <label for="save-id" class="checkbox-label">
+                        <input type="checkbox" id="save-id" name="save-id" th:checked="${isSaved}">
+                        <span>아이디 저장</span>
+                    </label>
+                </div>
+                <div>
+                    <span>
+                        아이디 찾기 | 비밀번호 찾기
+                    </span>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="form-row">
+                <button type="button" class="btn" id="join-btn" onclick="location.href='/member/join'">회원가입</button>
+            </div>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </form>
+    </div>
+</body>
+</html>

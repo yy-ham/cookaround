@@ -4,8 +4,11 @@ import com.project.cookaround.domain.member.dto.MemberRequestDto;
 import com.project.cookaround.domain.member.entity.EmailVerificationResult;
 import com.project.cookaround.domain.member.service.EmailVerificationService;
 import com.project.cookaround.domain.member.service.MemberService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -67,6 +71,48 @@ public class MemberController {
     public EmailVerificationResult verifyEmailCode(@RequestParam(name = "email") String email,
                                                    @RequestParam(name = "verificationCode") String verificationCode, HttpSession session) {
         return emailVerificationService.verifyVerificationCode(email, verificationCode, session);
+    }
+
+
+    // 로그인
+    @GetMapping("/login")
+    public String loginForm(Model model, HttpSession session, HttpServletRequest request) {
+        String loginId = null;
+        boolean isSaved = false;
+
+        // 로그인 실패
+        if (session.getAttribute("errorMessage") != null) {
+            loginId = session.getAttribute("loginId").toString();
+            String errorMessage = session.getAttribute("errorMessage").toString();
+
+            model.addAttribute("errorMessage", errorMessage);
+
+            session.removeAttribute("loginId");
+            session.removeAttribute("errorMessage");
+
+            if (session.getAttribute("isSaved") != null) {
+                isSaved = true;
+            }
+        }
+
+        // 아이디 저장
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("savedId".equals(cookie.getName())) {
+                    if (loginId == null) {
+                        loginId = cookie.getValue();
+                        isSaved = true;
+                    }
+                    break;
+                }
+            }
+        }
+
+        model.addAttribute("loginId", loginId);
+        model.addAttribute("isSaved", isSaved);
+
+        return "member/login";
     }
 
 }
