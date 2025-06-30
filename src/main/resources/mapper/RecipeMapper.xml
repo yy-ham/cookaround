@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.cookaround.domain.mapper.RecipeMapper">
+<mapper namespace="com.project.cookaround.domain.recipe.mapper.RecipeMapper">
 
-    <select id="showRecipeList" resultType="com.project.cookaround.domain.dto.RecipeDto">
+    <select id="showRecipeList" resultType="com.project.cookaround.domain.recipe.dto.RecipeDto">
         SELECT * FROM recipe
     </select>
 
     <!-- 레시피 목록 페이지 -->
-    <select id="showRecipeListJson" resultType="com.project.cookaround.domain.dto.RecipeDto">
+    <select id="showRecipeListJson" resultType="com.project.cookaround.domain.recipe.dto.RecipeDto">
         SELECT r.id, m.login_id AS loginId, r.category, r.title, r.view_count AS viewCount, r.created_at AS createdAt,
                m.profile AS memberProfile,
                COALESCE(rv.review_count, 0) AS reviewCount,
@@ -47,7 +47,7 @@
     </select>
 
     <!-- 레시피 상세 페이지 -->
-    <select id="showRecipeDetail" resultType="com.project.cookaround.domain.dto.RecipeDto">
+    <select id="showRecipeDetail" resultType="com.project.cookaround.domain.recipe.dto.RecipeDto">
         SELECT *
         FROM recipe
         WHERE id = #{id}

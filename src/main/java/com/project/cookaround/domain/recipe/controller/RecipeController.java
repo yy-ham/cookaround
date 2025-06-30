@@ -1,7 +1,7 @@
-package com.project.cookaround.domain.controller;
+package com.project.cookaround.domain.recipe.controller;
 
-import com.project.cookaround.domain.dto.RecipeDto;
-import com.project.cookaround.domain.service.RecipeService;
+import com.project.cookaround.domain.recipe.dto.RecipeDto;
+import com.project.cookaround.domain.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

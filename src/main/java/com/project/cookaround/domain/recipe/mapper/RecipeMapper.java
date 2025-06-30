@@ -1,6 +1,6 @@
-package com.project.cookaround.domain.mapper;
+package com.project.cookaround.domain.recipe.mapper;
 
-import com.project.cookaround.domain.dto.RecipeDto;
+import com.project.cookaround.domain.recipe.dto.RecipeDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

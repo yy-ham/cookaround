@@ -1,4 +1,4 @@
-package com.project.cookaround.domain.dto;
+package com.project.cookaround.domain.recipe.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

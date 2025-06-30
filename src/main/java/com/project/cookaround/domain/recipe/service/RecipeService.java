@@ -1,7 +1,7 @@
-package com.project.cookaround.domain.service;
+package com.project.cookaround.domain.recipe.service;
 
-import com.project.cookaround.domain.dto.RecipeDto;
-import com.project.cookaround.domain.mapper.RecipeMapper;
+import com.project.cookaround.domain.recipe.dto.RecipeDto;
+import com.project.cookaround.domain.recipe.mapper.RecipeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
