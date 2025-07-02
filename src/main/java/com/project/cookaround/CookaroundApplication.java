@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.project.cookaround.domain.mapper")
+@MapperScan("com.project.cookaround.domain")
 public class CookaroundApplication {
 
 	public static void main(String[] args) {
