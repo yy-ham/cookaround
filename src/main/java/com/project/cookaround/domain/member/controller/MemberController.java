@@ -1,6 +1,7 @@
 package com.project.cookaround.domain.member.controller;
 
 import com.project.cookaround.domain.member.dto.MemberRequestDto;
+import com.project.cookaround.domain.member.dto.MemberResponseDto;
 import com.project.cookaround.domain.member.entity.EmailVerificationResult;
 import com.project.cookaround.domain.member.service.EmailVerificationService;
 import com.project.cookaround.domain.member.service.MemberService;
@@ -58,7 +59,7 @@ public class MemberController {
         if (verificationCode == null) {
             return false;
         } else {
-            session.setAttribute("email",email);
+            session.setAttribute("email", email);
             session.setAttribute("verificationCode", verificationCode);
             session.setAttribute("issuedAt", LocalDateTime.now());
             session.setMaxInactiveInterval(60 * 5);
@@ -113,6 +114,20 @@ public class MemberController {
         model.addAttribute("isSaved", isSaved);
 
         return "members/login";
+    }
+
+
+    // 아이디 찾기
+    @GetMapping("/find-id")
+    public String findIdForm() {
+        return "members/find-id";
+    }
+
+    @PostMapping("/find-id")
+    public String findId(Model model, String email) {
+        MemberResponseDto responseDto = MemberResponseDto.fromEntity(memberService.findLoginId(email));
+        model.addAttribute("responseDto", responseDto);
+        return "members/find-id-result";
     }
 
 }

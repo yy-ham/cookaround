@@ -43,4 +43,11 @@ public class MemberService {
         return member.getId();
     }
 
+    // 아이디 찾기
+    public Member findLoginId(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+        return member;
+    }
+
 }

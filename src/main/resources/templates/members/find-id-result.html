@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>아이디 찾기</title>
+  <link rel="stylesheet" href="/css/members/find-id.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script src="/js/members/find-id.js" defer></script>
+</head>
+<body>
+  <div id="form-container">
+    <h1>아이디 찾기</h1>
+
+    <br><br>
+
+    <div>입력하신 정보와 일치하는 아이디입니다.</div>
+
+    <br>
+
+    <div>
+      <div th:text="${responseDto.loginId}"></div>
+      <div th:text="'가입일: ' + ${#temporals.format(responseDto.joinAt, 'yyyy-MM-dd')}"></div>
+    </div>
+
+    <br>
+
+    <div>
+      <a href="/members/login">로그인</a>
+      <a href="">비밀번호 찾기</a>
+    </div>
+  </div>
+</body>
+</html>
