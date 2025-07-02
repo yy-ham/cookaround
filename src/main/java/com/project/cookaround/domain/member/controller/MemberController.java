@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -29,7 +29,7 @@ public class MemberController {
     @GetMapping("/join")
     public String joinForm(Model model) {
         model.addAttribute("memberRequestDto", new MemberRequestDto());
-        return "member/join";
+        return "members/join";
     }
 
     @PostMapping("/join")
@@ -112,7 +112,7 @@ public class MemberController {
         model.addAttribute("loginId", loginId);
         model.addAttribute("isSaved", isSaved);
 
-        return "member/login";
+        return "members/login";
     }
 
 }

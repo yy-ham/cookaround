@@ -64,7 +64,7 @@ $(function () {
     // 중복 아이디 검사
     function checkDuplicateLoginId(loginId) {
         $.ajax({
-            url: "/member/check-login-id",
+            url: "/members/check-login-id",
             type: "GET",
             data: {
                 loginId: loginId
@@ -162,7 +162,7 @@ $(function () {
     function checkDuplicateEmail(email) {
         let isDuplicateEmail = false;
         $.ajax({
-            url: "/member/check-email",
+            url: "/members/check-email",
             type: "GET",
             async: false,
             data: {
@@ -191,7 +191,7 @@ $(function () {
             $("#form-email-verify").hide();
 
             $.ajax({
-                url: "/member/send-email-code",
+                url: "/members/send-email-code",
                 type: "POST",
                 data: {
                     email: email
@@ -221,7 +221,7 @@ $(function () {
         $("#email-verify-code-error-text").hide();
 
         $.ajax({
-            url: "/member/verify-email-code",
+            url: "/members/verify-email-code",
             type: "POST",
             data: {
                 email: email,
