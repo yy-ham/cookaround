@@ -194,7 +194,8 @@ $(function () {
                 url: "/members/send-email-code",
                 type: "POST",
                 data: {
-                    email: email
+                    email: email,
+                    type: "join"
                 },
                 success: function (isSuccess) {
                     if (isSuccess == null) {

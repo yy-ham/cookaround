@@ -54,7 +54,31 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/send-email-code")
-    public boolean sendEmailCode(@RequestParam(name = "email") String email, HttpSession session) {
+    public boolean sendEmailCode(@RequestParam(name = "email") String email,
+                                 @RequestParam(name = "type") String type, HttpSession session) {
+
+        // 회원가입 -> 가입된 이메일이 없어야 인증코드 발송
+        // 아이디 찾기 -> 가입된 이메일이 있어야 인증코드 발송
+
+        if ("join".equals(type)) {
+            // 회원가입
+            if (!memberService.validateDuplicateMemberByEmail(email)) {
+                saveVerificationInfoToSession(email, session);
+            }
+        } else if ("find-id".equals(type)) {
+            // 아이디 찾기
+            if (memberService.validateDuplicateMemberByEmail(email)) {
+                saveVerificationInfoToSession(email, session);
+            }
+        } else {
+            // 비밀번호 찾기
+        }
+
+        return false;
+
+    }
+
+    private boolean saveVerificationInfoToSession(String email, HttpSession session) {
         String verificationCode = emailVerificationService.sendVerificationEmail(email);
         if (verificationCode == null) {
             return false;

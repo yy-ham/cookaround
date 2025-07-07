@@ -34,9 +34,6 @@ $(function () {
         if (!checkFormatEmail(email)) {
             return;
         }
-        if (!checkDuplicateEmail(email)) {
-            return;
-        }
 
         isValidEmail = true;
         return isValidEmail;
@@ -45,7 +42,7 @@ $(function () {
     // 이메일 입력 여부 확인
     function checkRequiredEmail(email) {
         if (email === "") {
-            $("#email-error-text").text("이메일: 필수 정보입니다.").show();
+            $("#email-error-text").text("이메일 주소가 정확한지 확인해 주세요.").show();
             return false;
         }
         return true;
@@ -59,27 +56,6 @@ $(function () {
             return false;
         }
         return true;
-    }
-
-    // 이메일 등록 여부 검사
-    function checkDuplicateEmail(email) {
-        let isDuplicateEmail = false;
-        $.ajax({
-            url: "/members/check-email",
-            type: "GET",
-            async: false,
-            data: {
-                email: email
-            },
-            success: function (isDuplicate) {
-                if (isDuplicate) {
-                    isDuplicateEmail = isDuplicate;
-                } else {
-                    $("#email-error-text").text("존재하지 않는 이메일입니다.").show();
-                }
-            },
-        });
-        return isDuplicateEmail;
     }
 
 
@@ -96,13 +72,15 @@ $(function () {
                 url: "/members/send-email-code",
                 type: "POST",
                 data: {
-                    email: email
+                    email: email,
+                    type: "find-id"
                 },
                 success: function (isSuccess) {
                     if (isSuccess == null) {
                         alert("인증코드 발송에 실패했습니다. 다시 시도해 주세요.");
                     } else {
-                        alert("이메일이 발송되었습니다.");
+                        alert("이메일이 발송되었습니다. " +
+                            "인증코드가 오지 않으면 입력하신 정보가 회원정보와 일치하는지 확인해 주세요.");
                         $("#form-email-verify").show();
                         $("#email-verify-code-btn").show();
                         startTimer();
