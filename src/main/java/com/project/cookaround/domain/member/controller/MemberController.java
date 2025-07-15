@@ -58,24 +58,21 @@ public class MemberController {
                                  @RequestParam(name = "type") String type, HttpSession session) {
 
         // 회원가입 -> 가입된 이메일이 없어야 인증코드 발송
-        // 아이디 찾기 -> 가입된 이메일이 있어야 인증코드 발송
+        // 아이디 찾기, 비밀번호 찾기 -> 가입된 이메일이 있어야 인증코드 발송
 
         if ("join".equals(type)) {
             // 회원가입
             if (!memberService.validateDuplicateMemberByEmail(email)) {
                 saveVerificationInfoToSession(email, session);
             }
-        } else if ("find-id".equals(type)) {
-            // 아이디 찾기
+        } else {
+            // 아이디 찾기, 비밀번호 찾기
             if (memberService.validateDuplicateMemberByEmail(email)) {
                 saveVerificationInfoToSession(email, session);
             }
-        } else {
-            // 비밀번호 찾기
         }
 
         return false;
-
     }
 
     private boolean saveVerificationInfoToSession(String email, HttpSession session) {
@@ -152,6 +149,23 @@ public class MemberController {
         MemberResponseDto responseDto = MemberResponseDto.fromEntity(memberService.findLoginId(email));
         model.addAttribute("responseDto", responseDto);
         return "members/find-id-result";
+    }
+
+
+    // 비밀번호 찾기
+    @GetMapping("find-password")
+    public String findPasswordForm(Model model) {
+        model.addAttribute("resetPasswordForm", new MemberRequestDto());
+        return "members/find-password";
+    }
+
+    @PostMapping("/find-password")
+    public String findPassword(Model model, MemberRequestDto resetPasswordForm, HttpSession session) {
+        session.setAttribute("verifiedLoginId", resetPasswordForm.getLoginId());
+        session.setAttribute("verifiedEmail", resetPasswordForm.getEmail());
+
+        model.addAttribute("resetPasswordForm", resetPasswordForm);
+        return "members/reset-password";
     }
 
 }
