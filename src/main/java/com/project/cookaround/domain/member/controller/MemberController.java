@@ -168,4 +168,21 @@ public class MemberController {
         return "members/reset-password";
     }
 
+    // 비밀번호 재설정
+    @PostMapping("reset-password")
+    public String resetPassword(MemberRequestDto resetPasswordForm, HttpSession session) {
+        String encodedPassword = passwordEncoder.encode(resetPasswordForm.getPassword());
+
+        resetPasswordForm.setLoginId((String) session.getAttribute("verifiedLoginId"));
+        resetPasswordForm.setEmail((String) session.getAttribute("verifiedEmail"));
+        resetPasswordForm.setPassword(encodedPassword);
+
+        memberService.resetPassword(resetPasswordForm.toEntity());
+
+        session.removeAttribute("verifiedLoginId");
+        session.removeAttribute("verifiedEmail");
+
+        return "redirect:/members/login";
+    }
+
 }
