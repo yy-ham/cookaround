@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script th:inline="javascript">
+      $(function () {
+        alert([[${message.message}]]);
+        location.href = [[${message.redirectUrl}]];
+      });
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.project.cookaround.domain.member.controller;
 
 import com.project.cookaround.domain.member.dto.MemberRequestDto;
 import com.project.cookaround.domain.member.dto.MemberResponseDto;
+import com.project.cookaround.domain.member.dto.MessageResponseDto;
 import com.project.cookaround.domain.member.entity.EmailVerificationResult;
 import com.project.cookaround.domain.member.service.EmailVerificationService;
 import com.project.cookaround.domain.member.service.MemberService;
@@ -170,7 +171,7 @@ public class MemberController {
 
     // 비밀번호 재설정
     @PostMapping("reset-password")
-    public String resetPassword(MemberRequestDto resetPasswordForm, HttpSession session) {
+    public String resetPassword(MemberRequestDto resetPasswordForm, HttpSession session, Model model) {
         String encodedPassword = passwordEncoder.encode(resetPasswordForm.getPassword());
 
         resetPasswordForm.setLoginId((String) session.getAttribute("verifiedLoginId"));
@@ -182,7 +183,13 @@ public class MemberController {
         session.removeAttribute("verifiedLoginId");
         session.removeAttribute("verifiedEmail");
 
-        return "redirect:/members/login";
+        MessageResponseDto message = new MessageResponseDto();
+        message.setMessage("비빌번호 재설정이 완료되었습니다. 다시 로그인 해주세요.");
+        message.setRedirectUrl("/members/login");
+
+        model.addAttribute("message", message);
+
+        return "message-response";
     }
 
 }
