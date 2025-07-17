@@ -146,9 +146,13 @@ public class MemberController {
     }
 
     @PostMapping("/find-id")
-    public String findId(Model model, String email) {
+    public String findId(Model model, String email, HttpSession session) {
         MemberResponseDto responseDto = MemberResponseDto.fromEntity(memberService.findLoginId(email));
         model.addAttribute("responseDto", responseDto);
+
+        session.setAttribute("verifiedLoginId", responseDto.getLoginId());
+        session.setAttribute("verifiedEmail", responseDto.getEmail());
+
         return "members/find-id-result";
     }
 
@@ -169,8 +173,21 @@ public class MemberController {
         return "members/reset-password";
     }
 
+    // 아이디 찾기 완료 후 이메일 인증 없이 비밀번호 재설정 폼으로 바로 이동
+    @GetMapping("reset-password")
+    public String resetPasswordForm(Model model, HttpSession session) {
+        String loginId = (String) session.getAttribute("verifiedLoginId");
+
+        MemberRequestDto resetPasswordForm = new MemberRequestDto();
+        resetPasswordForm.setLoginId(loginId);
+
+        model.addAttribute("resetPasswordForm", resetPasswordForm);
+
+        return "members/reset-password";
+    }
+
     // 비밀번호 재설정
-    @PostMapping("reset-password")
+    @PostMapping("/reset-password")
     public String resetPassword(MemberRequestDto resetPasswordForm, HttpSession session, Model model) {
         String encodedPassword = passwordEncoder.encode(resetPasswordForm.getPassword());
 
