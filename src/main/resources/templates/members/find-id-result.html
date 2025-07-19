@@ -5,26 +5,27 @@
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <title>아이디 찾기</title>
+  <link rel="stylesheet" href="/css/members/find-id-result.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
-  <div id="form-container">
+  <div id="container">
     <h1>아이디 찾기</h1>
 
     <br><br>
 
-    <div>입력하신 정보와 일치하는 아이디입니다.</div>
+    <div class="message-container">입력하신 정보와 일치하는 아이디입니다.</div>
 
     <br>
 
-    <div>
-      <div id="login-id" th:text="${responseDto.loginId}"></div>
-      <div th:text="'가입일: ' + ${#temporals.format(responseDto.joinAt, 'yyyy-MM-dd')}"></div>
+    <div class="info-container">
+      <div class="row-container" id="login-id" th:text="${responseDto.loginId}"></div>
+      <div class="row-container" id="join-date" th:text="'가입일: ' + ${#temporals.format(responseDto.joinAt, 'yyyy-MM-dd')}"></div>
     </div>
 
     <br>
 
-    <div id="btn-container">
+    <div class="btn-container">
       <button type="button" class="btn" id="login-btn" onclick="location.href='/members/login'">로그인</button>
       <button type="button" class="btn" id="find-password-btn" onclick="location.href='/members/reset-password'">비밀번호 찾기</button>
     </div>
