@@ -6,9 +6,9 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>회원가입</title>
-    <link rel="stylesheet" href="/css/member/join.css">
+    <link rel="stylesheet" href="/css/members/join.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script src="/js/member/join.js" defer></script>
+    <script src="/js/members/join.js" defer></script>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 
         <br><br>
 
-        <form action="/member/join" method="post" th:object="${memberRequestDto}">
+        <form action="/members/join" method="post" th:object="${memberRequestDto}">
             <!-- 아이디 -->
             <div class="form-row" id="form-row-login-id">
                 <label for="login-id">

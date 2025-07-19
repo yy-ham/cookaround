@@ -27,7 +27,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
             request.getSession().removeAttribute("isSaved");
         }
 
-        response.sendRedirect("/member/login");
+        response.sendRedirect("/members/login");
     }
 
 }

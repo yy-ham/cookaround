@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.formLogin((form) -> form
-                .loginPage("/member/login")
+                .loginPage("/members/login")
                 .usernameParameter("login-id")
                 .passwordParameter("password")
                 .successHandler(successHandler)
@@ -33,7 +33,7 @@ public class SecurityConfig {
         );
 
         http.logout((logout) -> logout
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                 .logoutSuccessUrl("/")
         );
 

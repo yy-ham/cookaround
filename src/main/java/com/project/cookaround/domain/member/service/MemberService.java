@@ -43,4 +43,20 @@ public class MemberService {
         return member.getId();
     }
 
+    // 아이디 찾기
+    public Member findLoginId(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+        return member;
+    }
+
+    // 비밀번호 재설정
+    @Transactional
+    public Long resetPassword(Member resetPasswordFrom) {
+        Member member = memberRepository.findByLoginIdAndEmail(resetPasswordFrom.getLoginId(), resetPasswordFrom.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+        member.setPassword(resetPasswordFrom.getPassword());
+        return member.getId();
+    }
+
 }

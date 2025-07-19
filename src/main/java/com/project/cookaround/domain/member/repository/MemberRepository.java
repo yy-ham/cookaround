@@ -37,4 +37,12 @@ public class MemberRepository {
         return members.stream().findAny();
     }
 
+    public Optional<Member> findByLoginIdAndEmail(String loginId, String email) {
+        Member member = em.createQuery("select m from Member m where m.loginId = :loginId and m.email = :email", Member.class)
+                .setParameter("loginId", loginId)
+                .setParameter("email", email)
+                .getSingleResult();
+        return Optional.of(member);
+    }
+
 }
