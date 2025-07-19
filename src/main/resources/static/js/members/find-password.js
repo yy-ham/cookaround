@@ -29,7 +29,6 @@ $(function () {
     function findPassword(e) {
         e.preventDefault();
 
-        validateEmail();
         if (!isVerifiedEmail) {
             alert("이메일 인증을 해주세요.");
             return;
