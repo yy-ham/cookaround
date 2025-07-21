@@ -75,4 +75,8 @@
 
 <br><br>
 
+<h2>ERD</h2>
+<img src="https://github.com/user-attachments/assets/67afe794-018f-4105-a076-01c8d3e49c97"/>
+
+<br><br>
 
