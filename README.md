@@ -85,6 +85,13 @@
 
 <br><br>
 
+<h3>📌트러블슈팅</h3>
+<ul>
+  <li>아이디 찾기 후 이메일 인증 없이 비밀번호 재설정 기능 구현하기 [https://hotgamza.tistory.com/88]</li>
+</ul>
+
+<br><br>
+
 ▶를 누르면 상세 내용을 볼 수 있습니다.
 <br><br>
 
@@ -143,5 +150,32 @@
   <b>아이디 찾기 결과 화면</b>
   <p>
     <img width="450" src="https://github.com/user-attachments/assets/380205dc-354d-4686-83d7-ee02073cae8e"/>
+  </p>
+</details>
+
+<details open>
+  <summary>비밀번호 찾기</summary>
+  <br>
+  <ul>
+    <li>아이디 유효성 검사</li>
+    <li>이메일 유효성 검사</li>
+    <li>이메일 인증</li>
+    <li>비밀번호 재설정</li>
+    <li>아이디 찾기 후 비밀번호 찾기 진행 시 이메일 인증 생략</li>
+  </ul>
+  <br>
+  <b>📌트러블슈팅</b>
+  <ul>
+    <li>아이디 찾기 후 이메일 인증 없이 비밀번호 재설정 기능 구현하기 [https://hotgamza.tistory.com/88]</li>
+  </ul>
+  <br>
+  <b>비밀번호 찾기 화면</b>
+  <p>
+    <img width="450" src="https://github.com/user-attachments/assets/bae34e79-85b0-465c-99bc-0142cebf7e26"/>
+    <img width="450" src="https://github.com/user-attachments/assets/04aaa32d-af93-4654-9692-5f8cc16eb29b"/>
+  </p>
+  <b>비밀번호 재설정 화면</b>
+  <p>
+    <img width="450" src="https://github.com/user-attachments/assets/cab8c6f1-9932-442f-acb6-1d75a7a84c37"/>
   </p>
 </details>
