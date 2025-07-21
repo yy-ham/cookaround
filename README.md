@@ -119,10 +119,27 @@
     <li>로그인 성공 시, DB 최근 로그인 일시 갱신</li>
     <li>로그인 실패 시, 오류 메시지 출력</li>    
   </ul>
-  <br>
   <p>
     <img width="450" src="https://github.com/user-attachments/assets/a6d8fe2d-6700-473e-a9f5-5a4e29b554e3"/>
     <img width="450" src="https://github.com/user-attachments/assets/a0b288b6-ed1d-4828-bdda-6830e008fd1b"/>
   </p>
 </details>
 
+<details open>
+  <summary>아이디 찾기</summary>
+  <br>
+  <ul>
+    <li>아이디 유효성 검사</li>
+    <li>이메일 인증</li>
+  </ul>
+  <br>
+  <b>아이디 찾기 화면</b>
+  <p>
+    <img width="450" src="https://github.com/user-attachments/assets/eec0924b-e54c-492d-be50-9d99791b8969"/>
+    <img width="450" src="https://github.com/user-attachments/assets/d8ee8f01-8b8f-44d2-9f99-dc5c469423f4"/>
+  </p>
+  <b>아이디 찾기 결과 화면</b>
+  <p>
+    <img width="450" src="https://github.com/user-attachments/assets/380205dc-354d-4686-83d7-ee02073cae8e"/>
+  </p>
+</details>
