@@ -98,16 +98,31 @@
     <li>인증코드 이메일 전송 및 검증, 인증 유효시간 설정</li>
   </ul>
   <br>
-  
   <b>회원가입 화면</b>
   <p>
     <img width="450" src="https://github.com/user-attachments/assets/2b8f36ce-dd92-4c7d-be35-c0a392d4157c"/>
     <img width="450" src="https://github.com/user-attachments/assets/8793ea17-f6db-491b-ac0d-777fc8a11f46"/>
   </p>
   <br>
-  
   <b>이메일 인증코드 화면</b>
   <p>
     <img src="https://github.com/user-attachments/assets/a2191270-e28e-4ce6-a7ea-e1b7973376f6"/>
   </p>
 </details>
+
+<details open>
+  <summary>로그인</summary>
+  <br>
+  <ul>
+    <li>로그인 및 로그아웃</li>
+    <li>아이디 저장</li>
+    <li>로그인 성공 시, DB 최근 로그인 일시 갱신</li>
+    <li>로그인 실패 시, 오류 메시지 출력</li>    
+  </ul>
+  <br>
+  <p>
+    <img width="450" src="https://github.com/user-attachments/assets/a6d8fe2d-6700-473e-a9f5-5a4e29b554e3"/>
+    <img width="450" src="https://github.com/user-attachments/assets/a0b288b6-ed1d-4828-bdda-6830e008fd1b"/>
+  </p>
+</details>
+
