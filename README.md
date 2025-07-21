@@ -80,3 +80,34 @@
 
 <br><br>
 
+<h2>담당 기능</h2>
+※ 현재 UI는 기능 시연 중심으로 간단히 구성되어 있습니다.
+
+<br><br>
+
+▶를 누르면 상세 내용을 볼 수 있습니다.
+<br><br>
+
+<details open>
+  <summary>회원가입</summary>
+  <br>
+  <ul>
+    <li>아이디 유효성 검사 (required, 형식, 중복 회원 여부)</li>
+    <li>비밀번호 유효성 검사 (required, 형식, 비밀번호 확인과 일치 여부)</li>
+    <li>이메일 유효성 검사 (required, 형식, 중복 회원 여부)</li>
+    <li>인증코드 이메일 전송 및 검증, 인증 유효시간 설정</li>
+  </ul>
+  <br>
+  
+  <b>회원가입 화면</b>
+  <p>
+    <img width="450" src="https://github.com/user-attachments/assets/2b8f36ce-dd92-4c7d-be35-c0a392d4157c"/>
+    <img width="450" src="https://github.com/user-attachments/assets/8793ea17-f6db-491b-ac0d-777fc8a11f46"/>
+  </p>
+  <br>
+  
+  <b>이메일 인증코드 화면</b>
+  <p>
+    <img src="https://github.com/user-attachments/assets/a2191270-e28e-4ce6-a7ea-e1b7973376f6"/>
+  </p>
+</details>
