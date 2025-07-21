@@ -119,6 +119,8 @@
     <li>로그인 성공 시, DB 최근 로그인 일시 갱신</li>
     <li>로그인 실패 시, 오류 메시지 출력</li>    
   </ul>
+  <br>
+  <b>로그인 화면</b>
   <p>
     <img width="450" src="https://github.com/user-attachments/assets/a6d8fe2d-6700-473e-a9f5-5a4e29b554e3"/>
     <img width="450" src="https://github.com/user-attachments/assets/a0b288b6-ed1d-4828-bdda-6830e008fd1b"/>
