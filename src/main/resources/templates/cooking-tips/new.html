@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>요리팁 등록</title>
+    <link rel="stylesheet" href="">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="" defer></script>
+</head>
+<body>
+    <div id="form-container">
+        <h1>요리팁 등록</h1>
+
+        <!-- 요리팁 등록 폼 -->
+        <form action="/cooking-tips/new" method="post" th:object="${cookingTipForm}">
+            <!-- 카테고리 (셀렉트 박스) -->
+            <div class="form-row">
+                <span>카테고리</span>
+                <label for="category"></label>
+                <select id="category" name="category" required="required" th:field="*{category}">
+                    <option value="">선택</option>
+                    <option value="PREPARATION">손질법</option>
+                    <option value="STORAGE">보관법</option>
+                    <option value="COOKING">조리법</option>
+                </select>
+            </div>
+
+            <!-- 요리팁 제목 -->
+            <div class="form-row">
+                <span>요리팁 이름</span>
+                <label for="title"></label>
+                <input type="text" id="title" required="required" placeholder="예) 수박 손질하기" th:field="*{title}">
+            </div>
+
+            <!-- 요리팁 소개 -->
+            <div class="form-row">
+                <span>요리팁 소개</span>
+                <label for="description"></label>
+                <textarea id="description" required="required" rows="3" cols="100" placeholder="예) 수박을 손질하는 팁입니다." th:field="*{description}"></textarea>
+            </div>
+
+            <!-- 요리팁 내용 -->
+            <div class="form-row">
+                <span>내용</span>
+                <label for="content"></label>
+                <textarea id="content" required="required" rows="20" cols="100" placeholder="예) 수박을 손질하는 팁입니다." th:field="*{content}"></textarea>
+            </div>
+
+            <!-- 버튼 -->
+            <div id="btn-container">
+                <button type="reset" class="btn" id="cancel-btn">취소</button>
+                <button type="submit" class="btn" id="register-btn">등록</button>
+            </div>
+
+            <!-- CSRF 토큰 전송 -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </form>
+    </div>
+</body>
+</html>

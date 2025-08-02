@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title>요리팁</title>
+    <title>요리팁 상세</title>
     <link rel="stylesheet" href="">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="" defer></script>
 </head>
 <body>
-    <h1>요리팁 목록</h1>
-    <a href="/cooking-tips/new" sec:authorize="isAuthenticated()">요리팁 등록</a>
+    <h1>요리팁 상세</h1>
 </body>
 </html>
