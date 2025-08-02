@@ -3,6 +3,8 @@ package com.project.cookaround.domain.cookingtip.controller;
 import com.project.cookaround.common.security.CustomUserDetails;
 import com.project.cookaround.domain.cookingtip.dto.CookingTipRequestDto;
 import com.project.cookaround.domain.cookingtip.service.CookingTipService;
+import com.project.cookaround.domain.image.entity.ImageContentType;
+import com.project.cookaround.domain.image.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CookingTipController {
 
     private final CookingTipService cookingTipService;
+    private final ImageService imageService;
 
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
@@ -37,7 +40,12 @@ public class CookingTipController {
 
     @PostMapping("/cooking-tips/new")
     public String createCookingTip(CookingTipRequestDto cookingTipForm, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        // 요리팁 등록
         Long cookingTipId = cookingTipService.registerCookingTip(userDetails.getId(), cookingTipForm.toEntity());
+
+        // 사진 등록
+        imageService.registerImages(cookingTipForm.getImages(), ImageContentType.COOKINGTIP, cookingTipId);
+
         return "redirect:/cooking-tips/" + cookingTipId;
     }
 

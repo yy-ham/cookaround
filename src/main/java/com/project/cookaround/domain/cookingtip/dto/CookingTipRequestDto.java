@@ -4,6 +4,9 @@ import com.project.cookaround.domain.cookingtip.entity.CookingTip;
 import com.project.cookaround.domain.cookingtip.entity.CookingTipCategory;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Getter @Setter
 public class CookingTipRequestDto {
@@ -13,6 +16,7 @@ public class CookingTipRequestDto {
     private String title;
     private String description;
     private String content;
+    private List<MultipartFile> images;
 
 
     // Dto -> Entity 변환

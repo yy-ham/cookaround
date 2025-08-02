@@ -14,7 +14,7 @@
         <h1>요리팁 등록</h1>
 
         <!-- 요리팁 등록 폼 -->
-        <form action="/cooking-tips/new" method="post" th:object="${cookingTipForm}">
+        <form action="/cooking-tips/new" method="post" enctype="multipart/form-data" th:object="${cookingTipForm}">
             <!-- 카테고리 (셀렉트 박스) -->
             <div class="form-row">
                 <span>카테고리</span>
@@ -46,6 +46,13 @@
                 <span>내용</span>
                 <label for="content"></label>
                 <textarea id="content" required="required" rows="20" cols="100" placeholder="예) 수박을 손질하는 팁입니다." th:field="*{content}"></textarea>
+            </div>
+
+            <!-- 이미지 파일 업로드 -->
+            <div class="form-row">
+                <span>사진 등록</span>
+                <label for="images"> </label>
+                <input type="file" multiple="multiple" id="images" th:field="*{images}">
             </div>
 
             <!-- 버튼 -->
