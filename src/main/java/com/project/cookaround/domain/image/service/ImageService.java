@@ -45,7 +45,7 @@ public class ImageService {
                 Image image = new Image();
                 image.setContentType(contentType);
                 image.setContentId(contentId);
-                image.setOriginalName(m.getOriginalFilename());
+                image.setOriginalName(originalName);
                 image.setFileName(fileName);
                 image.setFilePath(filePath.toString());
                 image.setFileSize(m.getSize());

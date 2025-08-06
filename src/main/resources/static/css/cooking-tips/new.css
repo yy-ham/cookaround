@@ -1,0 +1,8 @@
+#previewImages {
+    list-style: none;
+    display: flex;
+}
+
+#image-count {
+    display: block;
+}

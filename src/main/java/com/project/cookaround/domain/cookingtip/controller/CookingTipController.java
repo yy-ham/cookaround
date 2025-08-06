@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,15 +39,16 @@ public class CookingTipController {
         return "cooking-tips/new";
     }
 
+    @ResponseBody
     @PostMapping("/cooking-tips/new")
-    public String createCookingTip(CookingTipRequestDto cookingTipForm, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    public Long createCookingTip(CookingTipRequestDto cookingTipForm, @AuthenticationPrincipal CustomUserDetails userDetails) {
         // 요리팁 등록
         Long cookingTipId = cookingTipService.registerCookingTip(userDetails.getId(), cookingTipForm.toEntity());
 
         // 사진 등록
         imageService.registerImages(cookingTipForm.getImages(), ImageContentType.COOKINGTIP, cookingTipId);
 
-        return "redirect:/cooking-tips/" + cookingTipId;
+        return cookingTipId;
     }
 
 }
