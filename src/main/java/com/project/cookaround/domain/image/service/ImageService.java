@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -57,6 +58,15 @@ public class ImageService {
         for (Image i : imageList) {
             imageRepository.save(i);
         }
+    }
+
+    public List<Image> getImagesByContentTypeAndContentId(ImageContentType contentType, Long contentId) {
+        return imageRepository.findByContentTypeAndContentId(contentType, contentId);
+    }
+
+    public Image getFirstImageByContentTypeAndContentId(ImageContentType contentType, Long contentId) {
+        return imageRepository.findByContentTypeAndContentIdOrderByIdAsc(contentType, contentId)
+                .orElseThrow(() -> new NoSuchElementException("사진을 찾을 수 없습니다."));
     }
 
 }
