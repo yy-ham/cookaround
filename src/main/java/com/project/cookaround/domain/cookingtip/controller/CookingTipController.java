@@ -1,6 +1,7 @@
 package com.project.cookaround.domain.cookingtip.controller;
 
 import com.project.cookaround.common.security.CustomUserDetails;
+import com.project.cookaround.domain.cookingtip.dto.CookingTipDetailResponseDto;
 import com.project.cookaround.domain.cookingtip.dto.CookingTipRequestDto;
 import com.project.cookaround.domain.cookingtip.dto.CookingTipListResponseDto;
 import com.project.cookaround.domain.cookingtip.entity.CookingTip;
@@ -14,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,7 +48,20 @@ public class CookingTipController {
 
     // 요리팁 상세 조회
     @GetMapping("/cooking-tips/{id}")
-    public String detail() {
+    public String detail(Model model, @PathVariable Long id) {
+
+        CookingTip cookingTip = cookingTipService.getCookingTipDetail(id);
+
+        List<Image> images = imageService.getImagesByContentTypeAndContentId(ImageContentType.COOKINGTIP, id);
+        List<ImageResponseDto> imageResponseDtos = images.stream()
+                .map(image -> {
+                    ImageResponseDto responseDto = ImageResponseDto.fromEntity(image);
+                    return responseDto;
+                }).toList();
+
+        CookingTipDetailResponseDto cookingTipDetailResponseDto = CookingTipDetailResponseDto.fromEntity(cookingTip, imageResponseDtos);
+        model.addAttribute("cookingTip", cookingTipDetailResponseDto);
+
         return "cooking-tips/detail";
     }
 

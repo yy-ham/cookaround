@@ -5,11 +5,42 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>요리팁 상세</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/css/cooking-tips/detail.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="" defer></script>
 </head>
 <body>
-    <h1>요리팁 상세</h1>
+    <div id="container">
+        <h1>요리팁 상세</h1>
+
+        <!-- 카테고리 -->
+        <div class="form-row">
+            <span>카테고리</span>
+            <span th:text="${cookingTip.category}"></span>
+        </div>
+
+        <!-- 요리팁 제목 -->
+        <div class="form-row">
+            <span>요리팁 이름</span>
+            <span th:text="${cookingTip.title}"></span>
+        </div>
+
+        <!-- 요리팁 소개 -->
+        <div class="form-row">
+            <span>요리팁 소개</span>
+            <div id="description" th:text="${cookingTip.description}"></div>
+        </div>
+
+        <!-- 요리팁 내용 -->
+        <div class="form-row">
+            <span>내용</span>
+            <div id="content" th:text="${cookingTip.content}"></div>
+        </div>
+
+        <!-- 이미지 -->
+        <div class="form-row" >
+            <img class="image" th:each="i : ${cookingTip.images}" th:src="@{'/uploads/cooking-tips/'+${i.fileName}}" alt="" width="200">
+        </div>
+    </div>
 </body>
 </html>
