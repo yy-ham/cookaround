@@ -28,7 +28,7 @@ public class ImageService {
     @Transactional
     public void registerImages(List<MultipartFile> images, ImageContentType contentType, Long contentId) {
         List<Image> imageList = new ArrayList<>();
-        Path filePath = Paths.get("C:/uploads/cooking-tip");
+        Path filePath = Paths.get("src/main/resources/static/uploads/cooking-tips");
 
         for (MultipartFile m : images) {
             if (!m.isEmpty()) {
