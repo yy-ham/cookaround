@@ -20,6 +20,7 @@ public class CookingTipDetailResponseDto {
     private String description;
     private String content;
     private List<ImageResponseDto> images;
+    private Long viewCount;
 
 
     // Entity -> Dto 변환
@@ -34,6 +35,7 @@ public class CookingTipDetailResponseDto {
         responseDto.setDescription(cookingTip.getDescription());
         responseDto.setContent(cookingTip.getContent());
         responseDto.setImages(images);
+        responseDto.setViewCount(cookingTip.getViewCount());
         return responseDto;
     }
 

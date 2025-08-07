@@ -35,9 +35,14 @@ public class CookingTipService {
     }
 
     // 요리팁 조회 - 상세
+    @Transactional
     public CookingTip getCookingTipDetail(Long id) {
-        return cookingTipRepository.findById(id)
+        CookingTip cookingTip = cookingTipRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("요리팁을 찾을 수 없습니다."));
+
+        cookingTip.increaseViewCount();
+
+        return cookingTip;
     }
 
     // 요리팁 등록

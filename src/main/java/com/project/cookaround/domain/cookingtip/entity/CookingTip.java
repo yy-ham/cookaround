@@ -56,4 +56,9 @@ public class CookingTip {
         this.updatedAt = LocalDateTime.now();
     }
 
+    // 조회수 증가
+    public void increaseViewCount() {
+        this.viewCount++;
+    }
+
 }
