@@ -10,6 +10,8 @@ import com.project.cookaround.domain.image.dto.ImageResponseDto;
 import com.project.cookaround.domain.image.entity.Image;
 import com.project.cookaround.domain.image.entity.ImageContentType;
 import com.project.cookaround.domain.image.service.ImageService;
+import com.project.cookaround.domain.likes.entity.LikesContentType;
+import com.project.cookaround.domain.likes.service.LikesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,7 @@ public class CookingTipController {
 
     private final CookingTipService cookingTipService;
     private final ImageService imageService;
+    private final LikesService likesService;
 
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
@@ -48,9 +51,9 @@ public class CookingTipController {
 
     // 요리팁 상세 조회
     @GetMapping("/cooking-tips/{id}")
-    public String detail(Model model, @PathVariable Long id) {
-
+    public String detail(Model model, @PathVariable Long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
         CookingTip cookingTip = cookingTipService.getCookingTipDetail(id);
+        boolean isLiked = false;
 
         List<Image> images = imageService.getImagesByContentTypeAndContentId(ImageContentType.COOKINGTIP, id);
         List<ImageResponseDto> imageResponseDtos = images.stream()
@@ -60,7 +63,13 @@ public class CookingTipController {
                 }).toList();
 
         CookingTipDetailResponseDto cookingTipDetailResponseDto = CookingTipDetailResponseDto.fromEntity(cookingTip, imageResponseDtos);
+
+        if (userDetails != null) {
+            isLiked = likesService.getLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), LikesContentType.COOKINGTIP, id);
+        }
+
         model.addAttribute("cookingTip", cookingTipDetailResponseDto);
+        model.addAttribute("isLiked", isLiked);
 
         return "cooking-tips/detail";
     }

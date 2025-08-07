@@ -21,6 +21,7 @@ public class CookingTipDetailResponseDto {
     private String content;
     private List<ImageResponseDto> images;
     private Long viewCount;
+    private Long likeCount;
 
 
     // Entity -> Dto 변환
@@ -36,6 +37,7 @@ public class CookingTipDetailResponseDto {
         responseDto.setContent(cookingTip.getContent());
         responseDto.setImages(images);
         responseDto.setViewCount(cookingTip.getViewCount());
+        responseDto.setLikeCount(cookingTip.getLikeCount());
         return responseDto;
     }
 
