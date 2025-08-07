@@ -11,6 +11,7 @@ public class CookingTipListResponseDto {
     private String title;
     private Long memberId;
     private String loginId;
+    private String profile;
     private String coverImage;
 
 
@@ -21,6 +22,7 @@ public class CookingTipListResponseDto {
         responseDto.setTitle(cookingTip.getTitle());
         responseDto.setMemberId(cookingTip.getMember().getId());
         responseDto.setLoginId(cookingTip.getMember().getLoginId());
+        responseDto.setProfile(cookingTip.getMember().getProfile());
         return responseDto;
     }
 

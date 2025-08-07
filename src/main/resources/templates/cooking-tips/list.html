@@ -19,6 +19,7 @@
                 <div class="card"  >
                     <img th:src="@{'/uploads/cooking-tips/'+${c.coverImage}}" alt="" width="200">
                     <p id="title" th:text="${c.title}" th:href="@{'/cooking-tips/' + ${c.id}}"></p>
+                    <img th:src="@{'/uploads/profile/'+${c.profile}}" alt="" width="25">
                     <p id="login-id" th:text="${c.loginId}"></p>
                     <img src="/img/heart_empty.png" alt="" width="25">
                 </div>

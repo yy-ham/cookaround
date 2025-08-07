@@ -28,6 +28,12 @@
             <span th:text="${cookingTip.title}"></span>
         </div>
 
+        <!-- 작성자 -->
+        <div class="form-row">
+            <img th:src="@{'/uploads/profile/'+${cookingTip.profile}}" alt="" width="25">
+            <span th:text="${cookingTip.loginId}"></span>
+        </div>
+
         <!-- 요리팁 소개 -->
         <div class="form-row">
             <span>요리팁 소개</span>

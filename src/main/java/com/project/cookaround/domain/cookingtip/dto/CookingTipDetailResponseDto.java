@@ -14,6 +14,7 @@ public class CookingTipDetailResponseDto {
     private Long id;
     private Long memberId;
     private String loginId;
+    private String profile;
     private CookingTipCategory category;
     private String title;
     private String description;
@@ -27,6 +28,7 @@ public class CookingTipDetailResponseDto {
         responseDto.setId(cookingTip.getId());
         responseDto.setMemberId(cookingTip.getMember().getId());
         responseDto.setLoginId(cookingTip.getMember().getLoginId());
+        responseDto.setProfile(cookingTip.getMember().getProfile());
         responseDto.setCategory(cookingTip.getCategory());
         responseDto.setTitle(cookingTip.getTitle());
         responseDto.setDescription(cookingTip.getDescription());
