@@ -5,3 +5,7 @@
 #content {
     white-space: pre-line;
 }
+
+.liked:hover {
+    cursor: pointer;
+}

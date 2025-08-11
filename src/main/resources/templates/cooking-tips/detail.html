@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/cooking-tips/detail.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <script src="" defer></script>
+    <script src="/js/cooking-tips/detail.js" defer></script>
 </head>
 <body>
     <div id="container">
@@ -39,9 +39,11 @@
             </div>
 
             <!-- 좋아요수 -->
-            <div>
-                <img src="/img/heart_empty.png" alt="" width="25" th:if="${isLiked == false}">
-                <img src="/img/heart_full.png" alt="" width="25" th:if="${isLiked == true}">
+            <div class="form-col" id="form-col-liked" th:data-content-id="${cookingTip.id}" data-content-type="COOKINGTIP">
+                <img src="/img/heart_empty.png" alt="" class="liked" id="not-liked-heart" width="25"
+                     th:style="${isLiked} ? 'display:none;' : 'display:inline;'">
+                <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"
+                     th:style="${isLiked} ? 'display:inline;' : 'display:none;'">
                 <span id="like-count" th:if="${cookingTip.likeCount > 0}" th:text="${cookingTip.likeCount}"></span>
             </div>
         </div>

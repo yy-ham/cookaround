@@ -1,5 +1,6 @@
 package com.project.cookaround.domain.likes.repository;
 
+import com.project.cookaround.domain.likes.entity.Likes;
 import com.project.cookaround.domain.likes.entity.LikesContentType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,6 +19,10 @@ public class LikesRepository {
                 .setParameter("contentId", contentId)
                 .getSingleResult();
         return count > 0;
+    }
+
+    public void save(Likes like) {
+        em.persist(like);
     }
 
 }
