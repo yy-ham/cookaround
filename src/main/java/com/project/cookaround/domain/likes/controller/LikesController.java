@@ -43,14 +43,20 @@ public class LikesController {
     // 좋아요 삭제
     @ResponseBody
     @DeleteMapping("/likes/{id}")
-    public boolean deleteLike(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    public Map<String, Object> deleteLike(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        Map<String, Object> response = new HashMap<>();
         boolean isSuccess = false;
+        Long likeCount = null;
+
         if (userDetails != null) {
-            likesService.deleteLike(id);
+            likeCount = likesService.deleteLike(id);
             isSuccess = true;
         }
 
-        return isSuccess;
+        response.put("isSuccess", isSuccess);
+        response.put("likeCount", likeCount);
+
+        return response;
     }
 
     // 좋아요 여부 조회

@@ -66,4 +66,9 @@ public class CookingTip {
         this.likeCount++;
     }
 
+    // 좋아요 수 감소
+    public void decreaseLikeCount() {
+        this.likeCount--;
+    }
+
 }

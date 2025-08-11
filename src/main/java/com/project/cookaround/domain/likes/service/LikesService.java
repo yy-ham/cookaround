@@ -57,9 +57,17 @@ public class LikesService {
     }
 
     @Transactional
-    public void deleteLike(Long id) {
+    public Long deleteLike(Long id) {
         Likes like = likesRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("좋아요를 찾을 수 없습니다."));
+
+        CookingTip cookingTip = cookingTipRepository.findById(like.getContentId())
+                .orElseThrow(() -> new NoSuchElementException("요리팁을 찾을 수 없습니다."));
+
         likesRepository.delete(like);
+
+        cookingTip.decreaseLikeCount(); // 좋아요 수 감소
+
+        return cookingTip.getLikeCount();
     }
 }
