@@ -1,5 +1,7 @@
 package com.project.cookaround.domain.likes.service;
 
+import com.project.cookaround.domain.cookingtip.entity.CookingTip;
+import com.project.cookaround.domain.cookingtip.repository.CookingTipRepository;
 import com.project.cookaround.domain.likes.entity.Likes;
 import com.project.cookaround.domain.likes.entity.LikesContentType;
 import com.project.cookaround.domain.likes.repository.LikesRepository;
@@ -16,10 +18,12 @@ public class LikesService {
 
     private final LikesRepository likesRepository;
     private final MemberRepository memberRepository;
+    private final CookingTipRepository cookingTipRepository;
 
-    public LikesService(LikesRepository likesRepository, MemberRepository memberRepository) {
+    public LikesService(LikesRepository likesRepository, MemberRepository memberRepository, CookingTipRepository cookingTipRepository) {
         this.likesRepository = likesRepository;
         this.memberRepository = memberRepository;
+        this.cookingTipRepository = cookingTipRepository;
     }
 
     public Likes getLikeById(Long id) {
@@ -41,10 +45,15 @@ public class LikesService {
         Member member = memberRepository.findOne(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
+        CookingTip cookingTip = cookingTipRepository.findById(like.getContentId())
+                .orElseThrow(() -> new NoSuchElementException("요리팁을 찾을 수 없습니다."));
+
         like.setMember(member);
         likesRepository.save(like);
 
-        return like.getId();
+        cookingTip.increaseLikeCount(); // 좋아요 수 증가
+
+        return cookingTip.getLikeCount();
     }
 
     @Transactional

@@ -11,6 +11,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 public class LikesController {
@@ -20,15 +23,21 @@ public class LikesController {
     // 좋아요 등록
     @ResponseBody
     @PostMapping("/likes/new")
-    public boolean registerLike(@RequestBody LikesRequestDto requestDto,
+    public Map<String, Object> registerLike(@RequestBody LikesRequestDto requestDto,
                                             @AuthenticationPrincipal CustomUserDetails userDetails) {
+        Map<String, Object> response = new HashMap<>();
         boolean isSuccess = false;
+        Long likeCount = null;
+
         if (userDetails != null) {
-            likesService.registerLike(userDetails.getId(), requestDto.toEntity());
+            likeCount = likesService.registerLike(userDetails.getId(), requestDto.toEntity());
             isSuccess = true;
         }
 
-        return isSuccess;
+        response.put("isSuccess", isSuccess);
+        response.put("likeCount", likeCount);
+
+        return response;
     }
 
     // 좋아요 삭제

@@ -45,7 +45,7 @@
                      th:style="${isLiked} ? 'display:none;' : 'display:inline;'">
                 <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"
                      th:style="${isLiked} ? 'display:inline;' : 'display:none;'">
-                <span id="like-count" th:if="${cookingTip.likeCount > 0}" th:text="${cookingTip.likeCount}"></span>
+                <span id="like-count" th:text="${cookingTip.likeCount > 0} ? ${cookingTip.likeCount} : ''"></span>
             </div>
         </div>
 

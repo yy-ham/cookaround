@@ -61,4 +61,9 @@ public class CookingTip {
         this.viewCount++;
     }
 
+    // 좋아요 수 증가
+    public void increaseLikeCount() {
+        this.likeCount++;
+    }
+
 }

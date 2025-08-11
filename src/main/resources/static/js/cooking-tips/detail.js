@@ -58,11 +58,12 @@ $(function () {
                 contentType: contentType,
                 contentId: contentId
             }),
-            success: function (isSuccess) {
-                if (isSuccess) {
+            success: function (response) {
+                if (response.isSuccess) {
                     $("#not-liked-heart").hide();
                     $("#liked-heart").show();
                     getLike();
+                    $("#like-count").text(response.likeCount);
                 } else {
                     alert("로그인이 필요한 기능입니다.");
                 }
