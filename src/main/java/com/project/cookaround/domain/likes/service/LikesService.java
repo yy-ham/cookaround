@@ -8,6 +8,8 @@ import com.project.cookaround.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 @Transactional(readOnly = true)
 public class LikesService {
@@ -20,8 +22,17 @@ public class LikesService {
         this.memberRepository = memberRepository;
     }
 
+    public Likes getLikeById(Long id) {
+        return likesRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("좋아요를 찾을 수 없습니다."));
+    }
 
-    public boolean getLikeByMemberIdAndContentTypeAndContentId(Long memberId, LikesContentType contentType, Long contentId) {
+    public Likes getLikeByMemberIdAndContentTypeAndContentId(Long memberId, LikesContentType contentType, Long contentId) {
+        return likesRepository.findByMemberIdAndContentTypeAndContentId(memberId, contentType, contentId)
+                .orElseThrow(() -> new NoSuchElementException("좋아요를 찾을 수 없습니다."));
+    }
+
+    public boolean existsLikeByMemberIdAndContentTypeAndContentId(Long memberId, LikesContentType contentType, Long contentId) {
         return likesRepository.existsByMemberIdAndContentTypeAndContentId(memberId, contentType, contentId);
     }
 
@@ -34,5 +45,12 @@ public class LikesService {
         likesRepository.save(like);
 
         return like.getId();
+    }
+
+    @Transactional
+    public void deleteLike(Long id) {
+        Likes like = likesRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("좋아요를 찾을 수 없습니다."));
+        likesRepository.delete(like);
     }
 }

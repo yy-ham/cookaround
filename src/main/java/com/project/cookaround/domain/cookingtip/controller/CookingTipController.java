@@ -65,7 +65,7 @@ public class CookingTipController {
         CookingTipDetailResponseDto cookingTipDetailResponseDto = CookingTipDetailResponseDto.fromEntity(cookingTip, imageResponseDtos);
 
         if (userDetails != null) {
-            isLiked = likesService.getLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), LikesContentType.COOKINGTIP, id);
+            isLiked = likesService.existsLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), LikesContentType.COOKINGTIP, id);
         }
 
         model.addAttribute("cookingTip", cookingTipDetailResponseDto);

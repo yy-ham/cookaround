@@ -40,6 +40,7 @@
 
             <!-- 좋아요수 -->
             <div class="form-col" id="form-col-liked" th:data-content-id="${cookingTip.id}" data-content-type="COOKINGTIP">
+                <input type="hidden" id="like-id">
                 <img src="/img/heart_empty.png" alt="" class="liked" id="not-liked-heart" width="25"
                      th:style="${isLiked} ? 'display:none;' : 'display:inline;'">
                 <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"
