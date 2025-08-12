@@ -64,9 +64,13 @@ public class LikesController {
     @GetMapping("/cooking-tips/{id}/likes")
     public LikesResponseDto getLikeById(@PathVariable Long id, @RequestParam LikesContentType contentType,
                                         @AuthenticationPrincipal CustomUserDetails userDetails) {
-        boolean isLiked = likesService.existsLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), contentType, id);
+        boolean isLiked = false;
         Likes like = null;
         LikesResponseDto responseDto = null;
+
+        if (userDetails != null) {
+            isLiked = likesService.existsLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), contentType, id);
+        }
 
         if (isLiked) {
             like = likesService.getLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), contentType, id);
