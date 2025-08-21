@@ -16,11 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,6 +28,8 @@ public class CookingTipController {
     private final CookingTipService cookingTipService;
     private final ImageService imageService;
     private final LikesService likesService;
+
+    private static final ImageContentType CONTENT_TYPE = ImageContentType.COOKINGTIP;
 
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
@@ -51,11 +51,12 @@ public class CookingTipController {
 
     // 요리팁 상세 조회
     @GetMapping("/cooking-tips/{id}")
-    public String detail(Model model, @PathVariable Long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        CookingTip cookingTip = cookingTipService.getCookingTipDetail(id);
+    public String detail(Model model, @PathVariable(name = "id") Long cookingTipId, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        CookingTip cookingTip = cookingTipService.getCookingTipDetail(cookingTipId);
         boolean isLiked = false;
+        boolean isOwner = false;
 
-        List<Image> images = imageService.getImagesByContentTypeAndContentId(ImageContentType.COOKINGTIP, id);
+        List<Image> images = imageService.getImagesByContentTypeAndContentId(CONTENT_TYPE, cookingTipId);
         List<ImageResponseDto> imageResponseDtos = images.stream()
                 .map(image -> {
                     ImageResponseDto responseDto = ImageResponseDto.fromEntity(image);
@@ -65,11 +66,16 @@ public class CookingTipController {
         CookingTipDetailResponseDto cookingTipDetailResponseDto = CookingTipDetailResponseDto.fromEntity(cookingTip, imageResponseDtos);
 
         if (userDetails != null) {
-            isLiked = likesService.existsLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), LikesContentType.COOKINGTIP, id);
+            isLiked = likesService.existsLikeByMemberIdAndContentTypeAndContentId(userDetails.getId(), LikesContentType.COOKINGTIP, cookingTipId);
+
+            if (userDetails.getId().equals(cookingTip.getMember().getId())) {
+                isOwner = true;
+            }
         }
 
         model.addAttribute("cookingTip", cookingTipDetailResponseDto);
         model.addAttribute("isLiked", isLiked);
+        model.addAttribute("isOwner", isOwner);
 
         return "cooking-tips/detail";
     }

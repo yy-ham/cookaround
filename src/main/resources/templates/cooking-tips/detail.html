@@ -99,6 +99,14 @@
                 <span class="visually-hidden">다음</span>
             </button>
         </div>
+
+        <!-- 버튼 -->
+        <div class="form-row" id="btn-container">
+            <button type="button" class="btn" id="list-btn" onclick="location.href='/cooking-tips'">목록</button>
+            <button type="button" class="btn" id="modify-btn" th:if="${isOwner}"
+                    th:onclick="|location.href='@{'/cooking-tips/'+${cookingTip.id}+'/edit'}'|">수정</button>
+            <button type="button" class="btn" id="delete-btn" th:if="${isOwner}">삭제</button>
+        </div>
     </div>
 </body>
 </html>
