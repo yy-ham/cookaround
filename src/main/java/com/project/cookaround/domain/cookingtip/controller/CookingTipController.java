@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,16 +34,17 @@ public class CookingTipController {
     @GetMapping("/cooking-tips")
     public String list(Model model) {
         List<CookingTip> cookingTips = cookingTipService.getAllCookingTips();
-        List<CookingTipListResponseDto> cookingTipResponseDtos = cookingTips.stream()
-                .map(cookingTip -> {
-                    Image image = imageService.getFirstImageByContentTypeAndContentId(ImageContentType.COOKINGTIP, cookingTip.getId());
-                    ImageResponseDto imageResponseDto = ImageResponseDto.fromEntity(image);
-                    CookingTipListResponseDto cookingTipListResponseDto = CookingTipListResponseDto.fromEntity(cookingTip);
-                    cookingTipListResponseDto.setCoverImage(imageResponseDto.getFileName());
-                    return cookingTipListResponseDto;
-                }).toList();
-
-        model.addAttribute("cookingTips", cookingTipResponseDtos);
+        if (!cookingTips.isEmpty()) {
+            List<CookingTipListResponseDto> cookingTipResponseDtos = cookingTips.stream()
+                    .map(cookingTip -> {
+                        Image image = imageService.getFirstImageByContentTypeAndContentId(ImageContentType.COOKINGTIP, cookingTip.getId());
+                        ImageResponseDto imageResponseDto = ImageResponseDto.fromEntity(image);
+                        CookingTipListResponseDto cookingTipListResponseDto = CookingTipListResponseDto.fromEntity(cookingTip);
+                        cookingTipListResponseDto.setCoverImage(imageResponseDto.getFileName());
+                        return cookingTipListResponseDto;
+                    }).toList();
+            model.addAttribute("cookingTips", cookingTipResponseDtos);
+        }
 
         return "cooking-tips/list";
     }
