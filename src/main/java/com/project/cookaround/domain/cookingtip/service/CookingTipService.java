@@ -60,15 +60,15 @@ public class CookingTipService {
     // 요리팁 수정
     @Transactional
     public Long updateCookingTip(Long memberId, CookingTip cookingTip) {
-        Member member = memberRepository.findOne(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        CookingTip foundCookingTip = cookingTipRepository.findById(cookingTip.getId())
+                .orElseThrow(() -> new NoSuchElementException("요리팁을 조회할 수 없습니다."));
 
-        cookingTip.setMember(member);
-        if (cookingTip.getId() != null) {
-            cookingTipRepository.save(cookingTip);
-        }
+        foundCookingTip.setCategory(cookingTip.getCategory());
+        foundCookingTip.setTitle(cookingTip.getTitle());
+        foundCookingTip.setDescription(cookingTip.getDescription());
+        foundCookingTip.setContent(cookingTip.getContent());
 
-        return cookingTip.getId();
+        return foundCookingTip.getId();
     }
 
     // 요리팁 삭제

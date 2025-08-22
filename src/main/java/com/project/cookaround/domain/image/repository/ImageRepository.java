@@ -27,12 +27,31 @@ public class ImageRepository {
         return images;
     }
 
-    public Optional<Image> findByContentTypeAndContentIdOrderByIdAsc(ImageContentType contentType, Long contentId) {
+    public List<Image> findByContentTypeAndContentIdOrderByIdAsc(ImageContentType contentType, Long contentId) {
+        List<Image> images = em.createQuery("select i from Image i where i.contentType = :contentType and i.contentId = :contentId order by i.id asc", Image.class)
+                .setParameter("contentType", contentType)
+                .setParameter("contentId", contentId)
+                .getResultList();
+        return images;
+    }
+
+    public Optional<Image> findFirstByContentTypeAndContentIdOrderByIdAsc(ImageContentType contentType, Long contentId) {
         List<Image> images = em.createQuery("select i from Image i where i.contentType = :contentType and i.contentId = :contentId order by i.id asc", Image.class)
                 .setParameter("contentType", contentType)
                 .setParameter("contentId", contentId)
                 .getResultList();
         return images.stream().findAny();
+    }
+
+    public List<Image> findByIdIn(List<Long> ids) {
+        List<Image> images =em.createQuery("select i from Image i where i.id IN :ids", Image.class)
+                .setParameter("ids", ids)
+                .getResultList();
+        return images;
+    }
+
+    public void delete(Image image) {
+        em.remove(image);
     }
 
 }

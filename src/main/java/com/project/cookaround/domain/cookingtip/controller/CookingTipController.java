@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -97,6 +98,55 @@ public class CookingTipController {
         imageService.registerImages(cookingTipForm.getImages(), ImageContentType.COOKINGTIP, cookingTipId);
 
         return cookingTipId;
+    }
+
+    // 요리팁 수정
+    @GetMapping("/cooking-tips/{id}/edit")
+    public String editForm(@PathVariable(name = "id") Long cookingTipId, Model model) {
+
+        System.out.println("CookingTipController.editForm");
+        
+        // 내용 가져오기
+        CookingTip cookingTip = cookingTipService.getCookingTipDetail(cookingTipId);
+        // 이미지 가져오기
+        List<Image> images = imageService.getImagesByContentTypeAndContentIdOrderByIdAsc(CONTENT_TYPE, cookingTipId);
+
+        // Entity -> Dto 변환
+        // 이미지
+        List<ImageResponseDto> imageResponseDtos = new ArrayList<>();
+        for (Image image : images) {
+            ImageResponseDto responseDto = ImageResponseDto.fromEntity(image);
+            imageResponseDtos.add(responseDto);
+        }
+        // 요리팁
+        CookingTipDetailResponseDto responseDto = CookingTipDetailResponseDto.fromEntity(cookingTip, imageResponseDtos);
+
+        model.addAttribute("response", responseDto);
+
+        return "cooking-tips/edit";
+    }
+
+    @ResponseBody
+    @PatchMapping("/cooking-tips/{id}")
+    public Long editCookingTip(@PathVariable(name = "id") Long cookingTipId,
+                               CookingTipRequestDto cookingTipForm,
+                               @RequestParam(required = false) List<Long> deletedImages,
+                               @AuthenticationPrincipal CustomUserDetails userDetails) {
+        // 내용 수정
+        Long modifiedId = cookingTipService.updateCookingTip(userDetails.getId(), cookingTipForm.toEntity());
+
+        // 이미지 수정
+        // 신규 이미지 등록
+        if (cookingTipForm.getImages() != null) {
+            imageService.registerImages(cookingTipForm.getImages(), CONTENT_TYPE, cookingTipId);
+        }
+
+        // 이미지 삭제
+        if (deletedImages != null) {
+            imageService.deleteImages(deletedImages, CONTENT_TYPE, cookingTipId);
+        }
+
+        return modifiedId;
     }
 
 }
