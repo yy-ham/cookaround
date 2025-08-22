@@ -48,4 +48,11 @@ public class LikesRepository {
         em.remove(like);
     }
 
+    public List<Likes> findByContentTypeAndContentId(LikesContentType contentType, Long contentId) {
+        return em.createQuery("select l from Likes l where l.contentType = :contentType and l.contentId = :contentId", Likes.class)
+                .setParameter("contentType", contentType)
+                .setParameter("contentId", contentId)
+                .getResultList();
+    }
+
 }

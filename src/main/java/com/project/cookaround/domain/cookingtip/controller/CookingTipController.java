@@ -149,4 +149,11 @@ public class CookingTipController {
         return modifiedId;
     }
 
+    // 요리팁 삭제
+    @ResponseBody
+    @DeleteMapping("/cooking-tips/{id}")
+    public boolean deleteCookingTip(@PathVariable(name = "id") Long cookingTipId) {
+        return cookingTipService.deleteCookingTip(cookingTipId);
+    }
+
 }

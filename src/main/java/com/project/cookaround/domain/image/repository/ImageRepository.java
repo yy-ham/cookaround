@@ -54,4 +54,11 @@ public class ImageRepository {
         em.remove(image);
     }
 
+    public List<Long> findIdsByContentTypeAndContentId(ImageContentType contentType, Long contentId) {
+        return em.createQuery("select i.id from Image i where i.contentType = :contentType and i.contentId = :contentId", Long.class)
+                .setParameter("contentType", contentType)
+                .setParameter("contentId", contentId)
+                .getResultList();
+    }
+
 }

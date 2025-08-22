@@ -11,13 +11,36 @@ $(function () {
 
     $(document).on("click", ".liked", clickLike);
 
+    // 요리팁 삭제
+    $(document).on("click", "#delete-btn", deleteCookingTip);
+
     getLike(); // 현재 좋아요 여부 조회
+
+    let contentId = $("#form-col-liked").attr("data-content-id");
+    let contentType = $("#form-col-liked").attr("data-content-type");
+
+
+    // 요리팁 삭제
+    function deleteCookingTip(e) {
+        e.preventDefault();
+
+        if (confirm("요리팁을 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "/cooking-tips/" + contentId,
+                type: "DELETE",
+                success: function (isDeleted) {
+                    if (isDeleted) {
+                        alert("삭제가 완료되었습니다.");
+                        location.href = "/cooking-tips";
+                    }
+                },
+            })
+        }
+    }
 
 
     function clickLike() {
         let status = $(this).attr("id");
-        let contentType = $("#form-col-liked").attr("data-content-type");
-        let contentId = $("#form-col-liked").attr("data-content-id");
 
         if (status == "not-liked-heart") {
             // 좋아요 등록
