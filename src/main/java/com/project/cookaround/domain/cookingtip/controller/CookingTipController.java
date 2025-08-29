@@ -33,8 +33,8 @@ public class CookingTipController {
 
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
-    public String list(Model model) {
-        List<CookingTip> cookingTips = cookingTipService.getAllCookingTips();
+    public String list(Model model, @RequestParam(defaultValue = "LATEST") String sort) {
+        List<CookingTip> cookingTips = cookingTipService.getAllCookingTips(sort);
         if (!cookingTips.isEmpty()) {
             List<CookingTipListResponseDto> cookingTipResponseDtos = cookingTips.stream()
                     .map(cookingTip -> {
@@ -103,9 +103,6 @@ public class CookingTipController {
     // 요리팁 수정
     @GetMapping("/cooking-tips/{id}/edit")
     public String editForm(@PathVariable(name = "id") Long cookingTipId, Model model) {
-
-        System.out.println("CookingTipController.editForm");
-        
         // 내용 가져오기
         CookingTip cookingTip = cookingTipService.getCookingTipDetail(cookingTipId);
         // 이미지 가져오기

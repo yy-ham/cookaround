@@ -14,6 +14,14 @@
     <div id="container">
         <h1>요리팁 목록</h1>
         <a href="/cooking-tips/new" sec:authorize="isAuthenticated()">요리팁 등록</a>
+
+        <!-- 정렬 -->
+        <div id="sort-container">
+            <a href="/cooking-tips?sort=LATEST">최신순</a>
+            <a href="/cooking-tips?sort=VIEWS">조회순</a>
+            <a href="/cooking-tips?sort=LIKES">좋아요순</a>
+        </div>
+
         <div id="card-container">
             <a th:each="c : ${cookingTips}" th:href="@{'/cooking-tips/' + ${c.id}}">
                 <div class="card"  >

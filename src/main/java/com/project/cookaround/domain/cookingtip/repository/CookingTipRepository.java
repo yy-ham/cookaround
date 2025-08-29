@@ -19,8 +19,23 @@ public class CookingTipRepository {
         em.persist(cookingTip);
     }
 
-    public List<CookingTip> findAll() {
-        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c", CookingTip.class)
+    // 요리팁 전체 목록 조회 (최신순)
+    public List<CookingTip> findAllOrderByCreatedAtDesc() {
+        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c order by c.createdAt desc", CookingTip.class)
+                .getResultList();
+        return cookingTips;
+    }
+
+    // 요리팁 전체 목록 조회 (조회순)
+    public List<CookingTip> findAllOrderByViewCountDesc() {
+        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c order by c.viewCount desc", CookingTip.class)
+                .getResultList();
+        return cookingTips;
+    }
+
+    // 요리팁 전체 목록 조회 (좋아요순)
+    public List<CookingTip> findAllOrderByLikeCountDesc() {
+        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c order by c.likeCount desc", CookingTip.class)
                 .getResultList();
         return cookingTips;
     }

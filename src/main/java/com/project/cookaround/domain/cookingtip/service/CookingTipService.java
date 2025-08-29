@@ -39,8 +39,16 @@ public class CookingTipService {
 
 
     // 요리팁 조회 - 전체
-    public List<CookingTip> getAllCookingTips() {
-        return cookingTipRepository.findAll();
+    public List<CookingTip> getAllCookingTips(String sort) {
+        if (sort.equals("LATEST")) {
+            return cookingTipRepository.findAllOrderByCreatedAtDesc();
+        } else if (sort.equals("VIEWS")) {
+            return cookingTipRepository.findAllOrderByViewCountDesc();
+        } else if (sort.equals("LIKES")) {
+            return cookingTipRepository.findAllOrderByLikeCountDesc();
+        } else {
+            return null;
+        }
     }
 
     // 요리팁 조회 - 카테고리
