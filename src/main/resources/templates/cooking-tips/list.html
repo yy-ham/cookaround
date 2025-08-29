@@ -13,7 +13,11 @@
 <body>
     <div id="container">
         <h1>요리팁 목록</h1>
-        <a href="/cooking-tips/new" sec:authorize="isAuthenticated()">요리팁 등록</a>
+
+        <!-- 버튼 -->
+        <div id="btn-container">
+            <button sec:authorize="isAuthenticated()" onclick="location.href='/cooking-tips/new'">요리팁 등록</button>
+        </div>
 
         <!-- 정렬 -->
         <div id="sort-container">
@@ -22,17 +26,46 @@
             <a href="/cooking-tips?sort=LIKES">좋아요순</a>
         </div>
 
-        <div id="card-container">
-            <a th:each="c : ${cookingTips}" th:href="@{'/cooking-tips/' + ${c.id}}">
-                <div class="card"  >
-                    <img th:src="@{'/uploads/cooking-tips/'+${c.coverImage}}" alt="" width="200">
-                    <p id="title" th:text="${c.title}" th:href="@{'/cooking-tips/' + ${c.id}}"></p>
-                    <img th:src="@{'/uploads/profile/'+${c.profile}}" alt="" width="25">
-                    <p id="login-id" th:text="${c.loginId}"></p>
-                    <img src="/img/heart_empty.png" alt="" width="25">
+        <div id="card-container" >
+            <div class="card" th:each="c : ${cookingTips}">
+                <div class="card-top">
+                    <!-- 이미지 -->
+                    <div class="card-image">
+                        <a th:href="@{'/cooking-tips/' + ${c.id}}">
+                            <img th:src="@{'/uploads/cooking-tips/'+${c.coverImage}}" alt="" width="200">
+                        </a>
+                    </div>
                 </div>
-            </a>
-        </div>
+
+                <div class="card-middle">
+                    <!-- 제목 -->
+                    <div class="card-title">
+                        <a th:href="@{'/cooking-tips/' + ${c.id}}">
+                            <div id="title" th:text="${c.title}" th:href="@{'/cooking-tips/' + ${c.id}}"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-bottom">
+                    <!-- 작성자 -->
+                    <div class="card-writer">
+                        <div class="profile-image">
+                            <img th:src="@{'/uploads/profile/'+${c.profile}}" alt="" width="25">
+                        </div>
+                        <div class="login-id" th:text="${c.loginId}"></div>
+                    </div>
+
+                    <!-- 좋아요 -->
+                    <div class="card-like">
+                        <input type="hidden" id="like-id">
+                        <img src="/img/heart_empty.png" alt="" class="liked" id="not-liked-heart" width="25">
+    <!--                         th:style="${isLiked} ? 'display:none;' : 'display:inline;'">-->
+    <!--                    <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"-->
+    <!--                         th:style="${isLiked} ? 'display:inline;' : 'display:none;'">-->
+                    </div>
+                </div>
+            </div> <!-- end of .card -->
+        </div> <!-- end of #card-container -->
     </div>
 </body>
 </html>
