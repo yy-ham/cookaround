@@ -55,4 +55,11 @@ public class LikesRepository {
                 .getResultList();
     }
 
+    public List<Likes> findByMemberIdAndContentType(Long memberId, LikesContentType contentType) {
+        return em.createQuery("select l from Likes l where l.member.id = :memberId and l.contentType = :contentType", Likes.class)
+                .setParameter("memberId", memberId)
+                .setParameter("contentType", contentType)
+                .getResultList();
+    }
+
 }

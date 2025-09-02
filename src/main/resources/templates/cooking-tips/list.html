@@ -61,10 +61,10 @@
                     <!-- 좋아요 -->
                     <div class="card-like">
                         <input type="hidden" id="like-id">
-                        <img src="/img/heart_empty.png" alt="" class="liked" id="not-liked-heart" width="25">
-    <!--                         th:style="${isLiked} ? 'display:none;' : 'display:inline;'">-->
-    <!--                    <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"-->
-    <!--                         th:style="${isLiked} ? 'display:inline;' : 'display:none;'">-->
+                        <img src="/img/heart_empty.png" alt="" class="liked" id="not-liked-heart" width="25"
+                             th:style="${#lists.contains(likedIds, c.id)} ? 'display:none;' : 'display:inline;'">
+                        <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"
+                             th:style="${#lists.contains(likedIds, c.id)} ? 'display:inline;' : 'display:none;'">
                     </div>
                 </div>
             </div> <!-- end of .card -->

@@ -10,6 +10,7 @@ import com.project.cookaround.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -69,5 +70,9 @@ public class LikesService {
         cookingTip.decreaseLikeCount(); // 좋아요 수 감소
 
         return cookingTip.getLikeCount();
+    }
+
+    public List<Likes> getLikesByMemberIdAndContentType(Long memberId, LikesContentType contentType) {
+        return likesRepository.findByMemberIdAndContentType(memberId, contentType);
     }
 }

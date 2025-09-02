@@ -10,6 +10,8 @@ import com.project.cookaround.domain.image.dto.ImageResponseDto;
 import com.project.cookaround.domain.image.entity.Image;
 import com.project.cookaround.domain.image.entity.ImageContentType;
 import com.project.cookaround.domain.image.service.ImageService;
+import com.project.cookaround.domain.likes.dto.LikesResponseDto;
+import com.project.cookaround.domain.likes.entity.Likes;
 import com.project.cookaround.domain.likes.entity.LikesContentType;
 import com.project.cookaround.domain.likes.service.LikesService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +35,8 @@ public class CookingTipController {
 
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
-    public String list(Model model, @RequestParam(defaultValue = "LATEST") String sort) {
+    public String list(Model model, @RequestParam(defaultValue = "LATEST") String sort,
+                       @AuthenticationPrincipal CustomUserDetails userDetails) {
         List<CookingTip> cookingTips = cookingTipService.getAllCookingTips(sort);
         if (!cookingTips.isEmpty()) {
             List<CookingTipListResponseDto> cookingTipResponseDtos = cookingTips.stream()
@@ -45,6 +48,16 @@ public class CookingTipController {
                         return cookingTipListResponseDto;
                     }).toList();
             model.addAttribute("cookingTips", cookingTipResponseDtos);
+
+            // 로그인한 사용자의 좋아요 여부 확인
+            if (userDetails.getId() != null) {
+                List<Likes> likes = likesService.getLikesByMemberIdAndContentType(userDetails.getId(), LikesContentType.COOKINGTIP);
+                List<Long> likedIds = new ArrayList<>();
+                for (Likes like : likes) {
+                    likedIds.add(LikesResponseDto.fromEntity(like).getContentId());
+                }
+                model.addAttribute("likedIds", likedIds);
+            }
         }
         model.addAttribute("sort", sort);
 
