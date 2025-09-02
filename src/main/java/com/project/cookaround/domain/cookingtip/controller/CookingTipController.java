@@ -46,6 +46,7 @@ public class CookingTipController {
                     }).toList();
             model.addAttribute("cookingTips", cookingTipResponseDtos);
         }
+        model.addAttribute("sort", sort);
 
         return "cooking-tips/list";
     }

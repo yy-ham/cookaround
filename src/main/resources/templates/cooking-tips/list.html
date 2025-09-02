@@ -21,9 +21,12 @@
 
         <!-- 정렬 -->
         <div id="sort-container">
-            <a href="/cooking-tips?sort=LATEST">최신순</a>
-            <a href="/cooking-tips?sort=VIEWS">조회순</a>
-            <a href="/cooking-tips?sort=LIKES">좋아요순</a>
+            <a href="/cooking-tips?sort=LATEST" class="sort-content" id="sort-latest"
+               th:classappend="${sort} == 'LATEST' ? ' sort-active' : ''">최신순</a>
+            <a href="/cooking-tips?sort=VIEWS" class="sort-content" id="sort-views"
+               th:classappend="${sort} == 'VIEWS' ? ' sort-active' : ''">조회순</a>
+            <a href="/cooking-tips?sort=LIKES" class="sort-content" id="sort-likes"
+               th:classappend="${sort} == 'LIKES' ? ' sort-active' : ''">좋아요순</a>
         </div>
 
         <div id="card-container" >

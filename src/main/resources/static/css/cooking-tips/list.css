@@ -26,6 +26,12 @@ a {
     color: black;
 }
 
+/* 정렬 활성화 */
+.sort-active {
+    color: orange;
+    font-weight: bold;
+}
+
 /* 요리팁 카드 */
 #card-container {
     display: grid;
