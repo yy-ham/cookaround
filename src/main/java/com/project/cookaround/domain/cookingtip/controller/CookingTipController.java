@@ -37,8 +37,17 @@ public class CookingTipController {
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
     public String list(Model model, @RequestParam(defaultValue = "LATEST") String sort,
+                       @RequestParam(defaultValue = "1") int page,
                        @AuthenticationPrincipal CustomUserDetails userDetails) {
-        List<CookingTip> cookingTips = cookingTipService.getAllCookingTips(sort);
+        // 페이징 처리
+        Map<String, Object> pageSetting = cookingTipService.setPage(page);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("startPage", pageSetting.get("startPage"));
+        model.addAttribute("endPage", pageSetting.get("endPage"));
+        model.addAttribute("hasPrev", pageSetting.get("hasPrev"));
+        model.addAttribute("hasNext", pageSetting.get("hasNext"));
+
+        List<CookingTip> cookingTips = cookingTipService.getAllCookingTips(sort, page - 1); // 데이터 조회 시 인덱스가 0부터 시작함
         if (!cookingTips.isEmpty()) {
             List<CookingTipListResponseDto> cookingTipResponseDtos = cookingTips.stream()
                     .map(cookingTip -> {
@@ -50,18 +59,20 @@ public class CookingTipController {
                     }).toList();
             model.addAttribute("cookingTips", cookingTipResponseDtos);
 
+            // Map 생성
+            Map<Long, Long> likedIds = new HashMap<>();
+
             // 로그인한 사용자의 좋아요 여부 확인
             if (userDetails != null) {
                 List<Likes> likes = likesService.getLikesByMemberIdAndContentType(userDetails.getId(), LikesContentType.COOKINGTIP);
 
-                // Map 생성
-                Map<Long, Long> likedIds = new HashMap<>();
-                for (Likes like : likes) {
-                    likedIds.put(like.getContentId(), like.getId());
+                if (!likes.isEmpty()) {
+                    for (Likes like : likes) {
+                        likedIds.put(like.getContentId(), like.getId());
+                    }
                 }
-
-                model.addAttribute("likedIds", likedIds);
             }
+            model.addAttribute("likedIds", likedIds);
         }
         model.addAttribute("sort", sort);
 

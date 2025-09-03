@@ -14,9 +14,7 @@ import com.project.cookaround.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,6 +25,9 @@ public class CookingTipService {
     private final ImageRepository imageRepository;
     private final LikesRepository likesRepository;
     private final ImageService imageService;
+
+    private static final int PAGE_SIZE = 10; // 한 페이지에 보여줄 요리팁 개수
+    private static final int BLOCK_SIZE = 5; // 한 번에 보여줄 페이징 버튼 개수
 
     public CookingTipService(CookingTipRepository cookingTipRepository, MemberRepository memberRepository,
                              ImageRepository imageRepository, LikesRepository likesRepository, ImageService imageService) {
@@ -39,16 +40,57 @@ public class CookingTipService {
 
 
     // 요리팁 조회 - 전체
-    public List<CookingTip> getAllCookingTips(String sort) {
+    public List<CookingTip> getAllCookingTips(String sort, int page) {
         if (sort.equals("LATEST")) {
-            return cookingTipRepository.findAllOrderByCreatedAtDesc();
+            return cookingTipRepository.findAllOrderByCreatedAtDesc(page, PAGE_SIZE);
         } else if (sort.equals("VIEWS")) {
-            return cookingTipRepository.findAllOrderByViewCountDesc();
+            return cookingTipRepository.findAllOrderByViewCountDesc(page, PAGE_SIZE);
         } else if (sort.equals("LIKES")) {
-            return cookingTipRepository.findAllOrderByLikeCountDesc();
+            return cookingTipRepository.findAllOrderByLikeCountDesc(page, PAGE_SIZE);
         } else {
             return null;
         }
+    }
+
+    // 페이징 처리
+    public Map<String, Object> setPage(int page) {
+        Long totalCount = cookingTipRepository.countAll(); // 전체 요리팁 개수
+        int totalPage = (int) Math.ceil((double) totalCount / PAGE_SIZE); // 전체 페이지 수, 소수점 올림
+
+        // 페이징 버튼
+        int currentBlock = (int) Math.ceil((double) page / BLOCK_SIZE); // page가 위치한 블럭
+        /**
+         * page=7, blockSize=5
+         * 7 ÷ 5 = 1.4 → 올림 → currentBlock = 2
+         * 7페이지는 “두 번째 블록(6~10)”에 속함.
+         */
+
+        int startPage = (currentBlock - 1) * BLOCK_SIZE + 1; // 현재 블록에서 시작하는 페이지 번호
+        /**
+         * currentBlock=2, blockSize=5
+         * (2-1) × 5 + 1 = 6 → startPage=6
+         * 두 번째 블록은 6부터 시작.
+         */
+
+        int endPage = Math.min(startPage + BLOCK_SIZE - 1, totalPage); // 현재 블록에서 끝나는 페이지 번호
+        /**
+         * 기본 startPage + 4 (5개 단위)
+         * 전체 페이지(totalPage)보다 넘어가면 안 되므로 Math.min으로 보정.
+         * 전체 페이지가 23이고, startPage=21이면
+         * 21+5-1=25 → min(25, 23) = 23 → endPage=23
+         */
+
+        boolean hasPrev = startPage > 1;
+        boolean hasNext = endPage < totalPage;
+
+
+        Map<String, Object> pageSetting = new HashMap<>();
+        pageSetting.put("startPage", startPage);
+        pageSetting.put("endPage", endPage);
+        pageSetting.put("hasPrev", hasPrev);
+        pageSetting.put("hasNext", hasNext);
+
+        return pageSetting;
     }
 
     // 요리팁 조회 - 카테고리

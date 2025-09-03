@@ -26,8 +26,8 @@ a {
     color: black;
 }
 
-/* 정렬 활성화 */
-.sort-active {
+/* 활성화 - 정렬 기준, 페이징 */
+.active {
     color: orange;
     font-weight: bold;
 }
@@ -38,6 +38,7 @@ a {
     grid-template-columns: repeat(5, 280px); /* 한 줄에 5개 */
     gap: 20px; /* 카드 사이 간격 일정 */
     justify-content: space-between; /* 컨테이너 좌우에 균등 분배 */
+    margin-bottom: 5%;
 }
 
 .card {
@@ -103,4 +104,15 @@ a {
 /* 좋아요 */
 .liked:hover {
     cursor: pointer;
+}
+
+/* 페이징 */
+li {
+    text-decoration: none;
+    display: inline;
+}
+
+#page-container {
+    text-align: center;
+    font-size: large;
 }

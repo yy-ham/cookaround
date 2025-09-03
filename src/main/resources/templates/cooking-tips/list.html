@@ -12,7 +12,9 @@
 </head>
 <body>
     <div id="container">
-        <h1>요리팁 목록</h1>
+        <h1>
+            <a href="/cooking-tips">요리팁</a>
+        </h1>
 
         <!-- 버튼 -->
         <div id="btn-container">
@@ -22,11 +24,11 @@
         <!-- 정렬 -->
         <div id="sort-container">
             <a href="/cooking-tips?sort=LATEST" class="sort-content" id="sort-latest"
-               th:classappend="${sort} == 'LATEST' ? ' sort-active' : ''">최신순</a>
+               th:classappend="${sort} == 'LATEST' ? ' active' : ''">최신순</a>
             <a href="/cooking-tips?sort=VIEWS" class="sort-content" id="sort-views"
-               th:classappend="${sort} == 'VIEWS' ? ' sort-active' : ''">조회순</a>
+               th:classappend="${sort} == 'VIEWS' ? ' active' : ''">조회순</a>
             <a href="/cooking-tips?sort=LIKES" class="sort-content" id="sort-likes"
-               th:classappend="${sort} == 'LIKES' ? ' sort-active' : ''">좋아요순</a>
+               th:classappend="${sort} == 'LIKES' ? ' active' : ''">좋아요순</a>
         </div>
 
         <div id="card-container" >
@@ -68,6 +70,34 @@
                 </div>
             </div> <!-- end of .card -->
         </div> <!-- end of #card-container -->
-    </div>
+
+        <div id="page-container">
+            <ul>
+                <!-- 이전 -->
+                <li>
+                    <a th:if="${hasPrev}"
+                       th:href="@{/cooking-tips(page=${startPage - 1}, sort=${sort})}">
+                        &laquo;</a>
+                    &nbsp;&nbsp;
+                </li>
+
+                <!-- 페이지 번호 -->
+                <li th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                    <a th:href="@{/cooking-tips(page=${i}, sort=${sort})}"
+                       th:text="${i}"
+                       th:classappend="${i == currentPage} ? 'active' : ''">
+                    </a>
+                    &nbsp;&nbsp;
+                </li>
+
+                <!-- 다음 -->
+                <li>
+                    <a th:if="${hasNext}"
+                       th:href="@{/cooking-tips(page=${endPage + 1}, sort=${sort})}">
+                        &raquo;</a>
+                </li>
+            </ul>
+        </div> <!-- end of #page_container -->
+    </div> <!-- end of #container -->
 </body>
 </html>
