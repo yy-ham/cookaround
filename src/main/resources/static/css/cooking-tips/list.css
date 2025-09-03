@@ -99,3 +99,8 @@ a {
     width: 100%;
     box-sizing: border-box;
 }
+
+/* 좋아요 */
+.liked:hover {
+    cursor: pointer;
+}

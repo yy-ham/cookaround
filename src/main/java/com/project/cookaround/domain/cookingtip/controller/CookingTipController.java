@@ -10,7 +10,6 @@ import com.project.cookaround.domain.image.dto.ImageResponseDto;
 import com.project.cookaround.domain.image.entity.Image;
 import com.project.cookaround.domain.image.entity.ImageContentType;
 import com.project.cookaround.domain.image.service.ImageService;
-import com.project.cookaround.domain.likes.dto.LikesResponseDto;
 import com.project.cookaround.domain.likes.entity.Likes;
 import com.project.cookaround.domain.likes.entity.LikesContentType;
 import com.project.cookaround.domain.likes.service.LikesService;
@@ -21,7 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,12 +51,15 @@ public class CookingTipController {
             model.addAttribute("cookingTips", cookingTipResponseDtos);
 
             // 로그인한 사용자의 좋아요 여부 확인
-            if (userDetails.getId() != null) {
+            if (userDetails != null) {
                 List<Likes> likes = likesService.getLikesByMemberIdAndContentType(userDetails.getId(), LikesContentType.COOKINGTIP);
-                List<Long> likedIds = new ArrayList<>();
+
+                // Map 생성
+                Map<Long, Long> likedIds = new HashMap<>();
                 for (Likes like : likes) {
-                    likedIds.add(LikesResponseDto.fromEntity(like).getContentId());
+                    likedIds.put(like.getContentId(), like.getId());
                 }
+
                 model.addAttribute("likedIds", likedIds);
             }
         }
