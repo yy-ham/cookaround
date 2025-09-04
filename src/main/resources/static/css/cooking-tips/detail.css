@@ -9,3 +9,81 @@
 .liked:hover {
     cursor: pointer;
 }
+
+#container {
+    margin: 10%;
+}
+
+#content-container {
+    width: 70%;
+    height: 100%;
+    margin: 0 auto; /* 좌우 자동 여백 */
+    margin-bottom: 30px;
+}
+
+#title {
+    font-family: "Noto Sans KR";
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+div {
+    font-family: "Noto Sans KR";
+}
+
+#category {
+    color: gray;
+    text-align: center;
+}
+
+#description {
+    color: gray;
+}
+
+#form-row-views-and-likes {
+    text-align: right;
+}
+
+#form-col-view {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#form-col-liked {
+    display: inline-block;
+}
+
+#form-row-writer {
+    margin-bottom: 15px;
+}
+
+#login-id {
+    font-size: large;
+    margin-left: 10px;
+}
+
+#form-row-content {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#cooking-tip-images-carousel {
+    margin: 0 auto;
+    max-width: 70%;
+}
+
+/* 버튼 */
+#btn-container {
+    text-align: center;
+}
+
+.tip-btn {
+    font-size: medium;
+    border: 2px solid orange;
+    border-radius: 4px;
+    background-color: #f9f0e6;
+    margin-left: 3px;
+    margin-right: 3px;
+}
