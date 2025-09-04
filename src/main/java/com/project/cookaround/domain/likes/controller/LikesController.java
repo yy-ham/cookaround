@@ -28,13 +28,17 @@ public class LikesController {
         Map<String, Object> response = new HashMap<>();
         boolean isSuccess = false;
         Long likeCount = null;
+        Long likeId = null;
 
         if (userDetails != null) {
-            likeCount = likesService.registerLike(userDetails.getId(), requestDto.toEntity());
+            Map<String, Long> savedLike = likesService.registerLike(userDetails.getId(), requestDto.toEntity());
+            likeId = savedLike.get("likeId");
+            likeCount = savedLike.get("likeCount");
             isSuccess = true;
         }
 
         response.put("isSuccess", isSuccess);
+        response.put("likeId", likeId);
         response.put("likeCount", likeCount);
 
         return response;

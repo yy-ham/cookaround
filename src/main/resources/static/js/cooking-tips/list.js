@@ -44,7 +44,7 @@ $(function () {
                 if (response.isSuccess) {
                     clickedCard.find("#not-liked-heart").hide();
                     clickedCard.find("#liked-heart").show();
-                    location.href = "/cooking-tips"; //서버에서 likeId 받아오는 것으로 수정하기
+                    clickedCard.attr("data-like-id", response.likeId);
                 } else {
                     alert("로그인이 필요한 기능입니다.");
                 }

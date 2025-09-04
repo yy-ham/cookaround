@@ -10,7 +10,9 @@ import com.project.cookaround.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -42,7 +44,7 @@ public class LikesService {
     }
 
     @Transactional
-    public Long registerLike(Long memberId, Likes like) {
+    public Map<String, Long> registerLike(Long memberId, Likes like) {
         Member member = memberRepository.findOne(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
@@ -54,7 +56,11 @@ public class LikesService {
 
         cookingTip.increaseLikeCount(); // 좋아요 수 증가
 
-        return cookingTip.getLikeCount();
+        Map<String, Long> savedLike = new HashMap<>();
+        savedLike.put("likeCount", cookingTip.getLikeCount());
+        savedLike.put("likeId", like.getId());
+
+        return savedLike;
     }
 
     @Transactional
