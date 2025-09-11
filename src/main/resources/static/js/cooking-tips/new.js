@@ -19,6 +19,9 @@ $(function () {
     // 요리팁 등록 버튼 클릭
     $(document).on("click", "#register-btn", registerCookingTip);
 
+    // 요리팁 등록 취소 버튼 클릭
+    $(document).on("click", "#cancel-btn", cancelCookingTip);
+
 
     let previewImageList = [];
 
@@ -111,6 +114,13 @@ $(function () {
                 file: fileList[i],
                 url: imageUrl
             });
+        }
+    }
+
+    //요리팁 등록 취소
+    function cancelCookingTip() {
+        if (confirm("작성을 취소하시겠습니까? 작성중인 내용은 저장되지 않습니다.")) {
+            location.href = "/cooking-tips";
         }
     }
 
