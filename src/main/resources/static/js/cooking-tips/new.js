@@ -25,9 +25,43 @@ $(function () {
 
     let previewImageList = [];
 
+
+    // 폼 내용 유효성 검사
+    function validateForm() {
+        let category = $("#category").val().trim();
+        let title = $("#title").val().trim();
+        let content = $("#content").val().trim();
+
+        if (!category) {
+            alert("카테고리를 선택해 주세요.");
+            return false;
+        }
+
+        if (!title) {
+            alert("요리팁 이름을 입력해 주세요.");
+            return false;
+        }
+
+        if (!content) {
+            alert("요리팁 내용을 입력해 주세요.");
+            return false;
+        }
+
+        if (previewImageList.length == 0) {
+            alert("사진을 한 장 이상 등록해 주세요.");
+            return false;
+        }
+
+        return true;
+    }
+
     // 요리팁 등록
     function registerCookingTip(e) {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         let formData = new FormData();
         formData.append("category", $("#category").val());
