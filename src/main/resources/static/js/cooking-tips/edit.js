@@ -25,6 +25,7 @@ $(function () {
     // 이미지
     let previewImageList = []; // 신규 이미지
     let deletedImageList = [];  // 삭제 이미지
+    const existingImages = $(".preview-image").length; // 기존 이미지 개수
 
     const path = window.location.pathname; // "/cooking-tips/123/edit"
     const cookingTipId = path.split("/")[2]; // "123"
@@ -92,23 +93,22 @@ $(function () {
             }
         }
 
-        $("#image-count").text(previewImageList.length + " / 10");
+        let totalCount = existingImages + previewImageList.length - deletedImageList.length;
+        $("#image-count").text(totalCount + " / 10");
     }
 
     // 이미지 미리보기
     function previewImages() {
         let fileList = this.files;
         let fileCount = fileList.length;
-        let totalCount = previewImageList.length + fileCount;
+        let totalCount = existingImages + previewImageList.length + fileCount - deletedImageList.length;
 
         if (totalCount > 10) {
             alert("사진은 최대 10장까지 등록할 수 있습니다.");
         } else {
             $("#image-count").text(totalCount + " / 10");
-            console.log("previewImageList.length=" + previewImageList.length);
             renderPreview(fileList);
         }
-
     }
 
     // 이미지 미리보기 렌더링
