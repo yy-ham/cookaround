@@ -91,14 +91,15 @@ $(function () {
 
             let ul = $("#previewImages");
             let li = $("<li>");
-            li.css("margin-right", "5px");
+            li.addClass("preview-image");
 
             let img = $("<img>");
             img.attr("src", imageUrl);
-            img.attr("width", 100);
-            img.attr("height", 100);
+            img.attr("width", 70);
+            img.attr("height", 70);
 
             let btn = $("<button>");
+            btn.addClass("remove-btn");
             btn.text("X");
             btn.attr("type", "button");
 
