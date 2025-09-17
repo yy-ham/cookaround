@@ -81,9 +81,8 @@ div {
 
 .tip-btn {
     font-size: medium;
-    border: 2px solid orange;
-    border-radius: 4px;
-    background-color: #f9f0e6;
+    border: 1px solid black;
+    border-radius: 3px;
     margin-left: 3px;
     margin-right: 3px;
 }
