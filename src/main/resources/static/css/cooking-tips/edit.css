@@ -1,0 +1,116 @@
+#container {
+    margin: 10%;
+}
+
+#form-container {
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.form-row {
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-block;
+    vertical-align: center;
+    width: 90px;
+    margin-bottom: 7px;
+}
+
+label[for="images"] {
+    display: none;
+}
+
+input {
+    font-size: medium;
+    padding: 5px;
+    width: 900px;
+    height: 35px;
+    box-sizing: border-box; /* 패딩 + 보더 포함해서 높이 계산 */
+    display: block;
+}
+
+select {
+    font-size: medium;
+    padding: 5px;
+    height: 35px;
+    width: 150px;
+    box-sizing: border-box;
+}
+
+textarea {
+    font-size: 16px;
+    font-family: "Noto Sans KR";
+    padding: 5px;
+    width: 900px;
+    box-sizing: border-box;
+    resize: none;
+    display: block;
+}
+
+/* 이미지 */
+#image-container {
+    margin-top: 15px;
+    width: 900px;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+#previewImages {
+    list-style: none;
+    display: inline-block;
+    width: 800px;
+    height: 70px;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+}
+
+#image-add-btn {
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+}
+
+#image-count {
+    display: block;
+    font-size: 15px;
+}
+
+.preview-image {
+    position: relative;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: rgba(48, 48, 48, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* 버튼 */
+#btn-container {
+    text-align: center;
+    margin-top: 50px;
+    width: 900px;
+    box-sizing: border-box;
+}
+
+.btn {
+    font-size: medium;
+    margin: 5px;
+}

@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 .env
 *.sql
+/src/main/resources/static/uploads/**
 
 ### STS ###
 .apt_generated

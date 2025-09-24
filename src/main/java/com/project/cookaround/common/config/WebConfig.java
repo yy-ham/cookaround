@@ -3,6 +3,7 @@ package com.project.cookaround.common.config;
 import com.project.cookaround.common.interceptor.ResetPasswordInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -14,6 +15,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new ResetPasswordInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/js/**", "/css/**");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations("file:src/main/resources/static/uploads/");
     }
 
 }

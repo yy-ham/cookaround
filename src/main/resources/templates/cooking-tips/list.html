@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>요리팁</title>
+    <link rel="stylesheet" href="/css/cooking-tips/list.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="/js/cooking-tips/list.js" defer></script>
+</head>
+<body>
+    <div id="container">
+        <h1>
+            <a href="/cooking-tips">요리팁</a>
+        </h1>
+
+        <!-- 카테고리 -->
+        <div id="category-container">
+            <a th:href="@{/cooking-tips(category='ALL', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'ALL' ? ' active' : ''">전체</a> |
+            <a th:href="@{/cooking-tips(category='PREPARATION', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'PREPARATION' ? ' active' : ''">손질법</a> |
+            <a th:href="@{/cooking-tips(category='STORAGE', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'STORAGE' ? ' active' : ''">보관법</a> |
+            <a th:href="@{/cooking-tips(category='COOKING', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'COOKING' ? ' active' : ''">조리법</a>
+        </div>
+
+        <!-- 버튼 -->
+        <div id="btn-container">
+            <button sec:authorize="isAuthenticated()" onclick="location.href='/cooking-tips/new'">요리팁 등록</button>
+        </div>
+
+        <!-- 정렬 -->
+        <div id="sort-container">
+            <a th:href="@{/cooking-tips(category=${category}, sort='LATEST')}" class="sort-content" id="sort-latest"
+               th:classappend="${sort} == 'LATEST' ? ' active' : ''">최신순</a>
+            <a th:href="@{/cooking-tips(category=${category}, sort='VIEWS')}" class="sort-content" id="sort-views"
+               th:classappend="${sort} == 'VIEWS' ? ' active' : ''">조회순</a>
+            <a th:href="@{/cooking-tips(category=${category}, sort='LIKES')}" class="sort-content" id="sort-likes"
+               th:classappend="${sort} == 'LIKES' ? ' active' : ''">좋아요순</a>
+        </div>
+
+        <div id="card-container" >
+            <div class="card" th:each="c : ${cookingTips}">
+                <div class="card-top">
+                    <!-- 이미지 -->
+                    <div class="card-image">
+                        <a th:href="@{'/cooking-tips/' + ${c.id}}">
+                            <img th:src="@{'/uploads/cooking-tips/'+${c.coverImage}}" alt="" width="200">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-middle">
+                    <!-- 제목 -->
+                    <div class="card-title">
+                        <a th:href="@{'/cooking-tips/' + ${c.id}}">
+                            <div id="title" th:text="${c.title}" th:href="@{'/cooking-tips/' + ${c.id}}"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-bottom">
+                    <!-- 작성자 -->
+                    <div class="card-writer">
+                        <div class="profile-image">
+                            <img th:src="@{'/uploads/profile/'+${c.profile}}" alt="" width="25">
+                        </div>
+                        <div class="login-id" th:text="${c.loginId}"></div>
+                    </div>
+
+                    <!-- 좋아요 -->
+                    <div class="card-like" th:data-content-id="${c.id}" data-content-type="COOKINGTIP" th:data-like-id="${likedIds[c.id]}">
+                        <img src="/img/heart_empty.png" alt="" class="liked" id="not-liked-heart" width="25"
+                             th:style="${likedIds.containsKey(c.id)} ? 'display:none;' : 'display:inline;'">
+                        <img src="/img/heart_full.png" alt="" class="liked" id="liked-heart" width="25"
+                             th:style="${likedIds.containsKey(c.id)} ? 'display:inline;' : 'display:none;'">
+                    </div>
+                </div>
+            </div> <!-- end of .card -->
+        </div> <!-- end of #card-container -->
+
+        <div id="page-container">
+            <ul>
+                <!-- 이전 -->
+                <li>
+                    <a th:if="${hasPrev}"
+                       th:href="@{/cooking-tips(category=${category}, sort=${sort}, page=${startPage - 1})}">
+                        &laquo;
+                    </a>
+                    &nbsp;&nbsp;
+                </li>
+
+                <!-- 페이지 번호 -->
+                <li th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                    <a th:href="@{/cooking-tips(category=${category}, sort=${sort}, page=${i})}"
+                       th:text="${i}"
+                       th:classappend="${i == currentPage} ? 'active' : ''">
+                    </a>
+                    &nbsp;&nbsp;
+                </li>
+
+                <!-- 다음 -->
+                <li>
+                    <a th:if="${hasNext}"
+                       th:href="@{/cooking-tips(category=${category}, sort=${sort}, page=${endPage + 1})}">
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
+        </div> <!-- end of #page_container -->
+    </div> <!-- end of #container -->
+</body>
+</html>
