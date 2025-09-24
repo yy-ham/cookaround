@@ -37,17 +37,18 @@ public class CookingTipController {
     // 요리팁 전체 목록
     @GetMapping("/cooking-tips")
     public String list(Model model, @RequestParam(defaultValue = "LATEST") String sort,
+                       @RequestParam(defaultValue = "ALL") String category,
                        @RequestParam(defaultValue = "1") int page,
                        @AuthenticationPrincipal CustomUserDetails userDetails) {
         // 페이징 처리
-        Map<String, Object> pageSetting = cookingTipService.setPage(page);
+        Map<String, Object> pageSetting = cookingTipService.setPage(category, page);
         model.addAttribute("currentPage", page);
         model.addAttribute("startPage", pageSetting.get("startPage"));
         model.addAttribute("endPage", pageSetting.get("endPage"));
         model.addAttribute("hasPrev", pageSetting.get("hasPrev"));
         model.addAttribute("hasNext", pageSetting.get("hasNext"));
 
-        List<CookingTip> cookingTips = cookingTipService.getAllCookingTips(sort, page - 1); // 데이터 조회 시 인덱스가 0부터 시작함
+        List<CookingTip> cookingTips = cookingTipService.getCookingTipsBySortAndCategory(sort, category, page - 1); // 데이터 조회 시 인덱스가 0부터 시작함
         if (!cookingTips.isEmpty()) {
             List<CookingTipListResponseDto> cookingTipResponseDtos = cookingTips.stream()
                     .map(cookingTip -> {
@@ -75,6 +76,7 @@ public class CookingTipController {
             model.addAttribute("likedIds", likedIds);
         }
         model.addAttribute("sort", sort);
+        model.addAttribute("category", category);
 
         return "cooking-tips/list";
     }

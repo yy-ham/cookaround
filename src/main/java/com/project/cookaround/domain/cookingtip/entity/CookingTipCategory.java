@@ -16,4 +16,13 @@ public enum CookingTipCategory {
     public String getDescription() {
         return description;
     }
+
+    public static CookingTipCategory fromString(String value) {
+        for (CookingTipCategory category : CookingTipCategory.values()) {
+            if (category.name().equalsIgnoreCase(value)) {
+                return category;
+            }
+        }
+        throw new IllegalArgumentException(value + "카테고리를 찾을 수 없습니다.");
+    }
 }

@@ -16,6 +16,18 @@
             <a href="/cooking-tips">요리팁</a>
         </h1>
 
+        <!-- 카테고리 -->
+        <div id="category-container">
+            <a th:href="@{/cooking-tips(category='ALL', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'ALL' ? ' active' : ''">전체</a> |
+            <a th:href="@{/cooking-tips(category='PREPARATION', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'PREPARATION' ? ' active' : ''">손질법</a> |
+            <a th:href="@{/cooking-tips(category='STORAGE', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'STORAGE' ? ' active' : ''">보관법</a> |
+            <a th:href="@{/cooking-tips(category='COOKING', sort=${sort})}" class="category-content"
+               th:classappend="${category} == 'COOKING' ? ' active' : ''">조리법</a>
+        </div>
+
         <!-- 버튼 -->
         <div id="btn-container">
             <button sec:authorize="isAuthenticated()" onclick="location.href='/cooking-tips/new'">요리팁 등록</button>
@@ -23,11 +35,11 @@
 
         <!-- 정렬 -->
         <div id="sort-container">
-            <a href="/cooking-tips?sort=LATEST" class="sort-content" id="sort-latest"
+            <a th:href="@{/cooking-tips(category=${category}, sort='LATEST')}" class="sort-content" id="sort-latest"
                th:classappend="${sort} == 'LATEST' ? ' active' : ''">최신순</a>
-            <a href="/cooking-tips?sort=VIEWS" class="sort-content" id="sort-views"
+            <a th:href="@{/cooking-tips(category=${category}, sort='VIEWS')}" class="sort-content" id="sort-views"
                th:classappend="${sort} == 'VIEWS' ? ' active' : ''">조회순</a>
-            <a href="/cooking-tips?sort=LIKES" class="sort-content" id="sort-likes"
+            <a th:href="@{/cooking-tips(category=${category}, sort='LIKES')}" class="sort-content" id="sort-likes"
                th:classappend="${sort} == 'LIKES' ? ' active' : ''">좋아요순</a>
         </div>
 
@@ -76,14 +88,15 @@
                 <!-- 이전 -->
                 <li>
                     <a th:if="${hasPrev}"
-                       th:href="@{/cooking-tips(page=${startPage - 1}, sort=${sort})}">
-                        &laquo;</a>
+                       th:href="@{/cooking-tips(category=${category}, sort=${sort}, page=${startPage - 1})}">
+                        &laquo;
+                    </a>
                     &nbsp;&nbsp;
                 </li>
 
                 <!-- 페이지 번호 -->
                 <li th:each="i : ${#numbers.sequence(startPage, endPage)}">
-                    <a th:href="@{/cooking-tips(page=${i}, sort=${sort})}"
+                    <a th:href="@{/cooking-tips(category=${category}, sort=${sort}, page=${i})}"
                        th:text="${i}"
                        th:classappend="${i == currentPage} ? 'active' : ''">
                     </a>
@@ -93,8 +106,9 @@
                 <!-- 다음 -->
                 <li>
                     <a th:if="${hasNext}"
-                       th:href="@{/cooking-tips(page=${endPage + 1}, sort=${sort})}">
-                        &raquo;</a>
+                       th:href="@{/cooking-tips(category=${category}, sort=${sort}, page=${endPage + 1})}">
+                        &raquo;
+                    </a>
                 </li>
             </ul>
         </div> <!-- end of #page_container -->

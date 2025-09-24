@@ -46,6 +46,36 @@ public class CookingTipRepository {
         return cookingTips;
     }
 
+    // 요리팁 카테고리별 목록 조회 (최신순)
+    public List<CookingTip> findByCategoryOrderByCreatedAtDesc(CookingTipCategory category, int page, int PAGE_SIZE) {
+        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c where c.category = :category order by c.createdAt desc", CookingTip.class)
+                .setParameter("category", category)
+                .setFirstResult(page * PAGE_SIZE)
+                .setMaxResults(PAGE_SIZE)
+                .getResultList();
+        return cookingTips;
+    }
+
+    // 요리팁 카테고리별 목록 조회 (조회순)
+    public List<CookingTip> findByCategoryOrderByViewCountDesc(CookingTipCategory category, int page, int PAGE_SIZE) {
+        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c where c.category = :category order by c.viewCount desc", CookingTip.class)
+                .setParameter("category", category)
+                .setFirstResult(page * PAGE_SIZE)
+                .setMaxResults(PAGE_SIZE)
+                .getResultList();
+        return cookingTips;
+    }
+
+    // 요리팁 카테고리별 목록 조회 (좋아요순)
+    public List<CookingTip> findByCategoryOrderByLikeCountDesc(CookingTipCategory category, int page, int PAGE_SIZE) {
+        List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c where c.category = :category order by c.likeCount desc", CookingTip.class)
+                .setParameter("category", category)
+                .setFirstResult(page * PAGE_SIZE)
+                .setMaxResults(PAGE_SIZE)
+                .getResultList();
+        return cookingTips;
+    }
+
     public Optional<CookingTip> findById(Long id) {
         List<CookingTip> cookingTips = em.createQuery("select c from CookingTip c where c.id = :id", CookingTip.class)
                     .setParameter("id", id)
@@ -67,6 +97,13 @@ public class CookingTipRepository {
     // 요리팁 전체 개수 조회
     public Long countAll() {
         return em.createQuery("select count(c) from CookingTip c", Long.class)
+                .getSingleResult();
+    }
+
+    // 카테고리별 요리팁 개수 조회
+    public Long countByCategory(CookingTipCategory category) {
+        return em.createQuery("select count(c) from CookingTip c where c.category = :category", Long.class)
+                .setParameter("category", category)
                 .getSingleResult();
     }
 

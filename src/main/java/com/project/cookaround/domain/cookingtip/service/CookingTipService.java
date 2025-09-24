@@ -40,21 +40,41 @@ public class CookingTipService {
 
 
     // 요리팁 조회 - 전체
-    public List<CookingTip> getAllCookingTips(String sort, int page) {
-        if (sort.equals("LATEST")) {
-            return cookingTipRepository.findAllOrderByCreatedAtDesc(page, PAGE_SIZE);
-        } else if (sort.equals("VIEWS")) {
-            return cookingTipRepository.findAllOrderByViewCountDesc(page, PAGE_SIZE);
-        } else if (sort.equals("LIKES")) {
-            return cookingTipRepository.findAllOrderByLikeCountDesc(page, PAGE_SIZE);
+    public List<CookingTip> getCookingTipsBySortAndCategory(String sort, String category, int page) {
+        if (category.equals("ALL")) {
+            if (sort.equals("LATEST")) {
+                return cookingTipRepository.findAllOrderByCreatedAtDesc(page, PAGE_SIZE);
+            } else if (sort.equals("VIEWS")) {
+                return cookingTipRepository.findAllOrderByViewCountDesc(page, PAGE_SIZE);
+            } else if (sort.equals("LIKES")) {
+                return cookingTipRepository.findAllOrderByLikeCountDesc(page, PAGE_SIZE);
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            CookingTipCategory cookingTipCategory = CookingTipCategory.fromString(category);
+            if (sort.equals("LATEST")) {
+                return cookingTipRepository.findByCategoryOrderByCreatedAtDesc(cookingTipCategory, page, PAGE_SIZE);
+            } else if (sort.equals("VIEWS")) {
+                return cookingTipRepository.findByCategoryOrderByViewCountDesc(cookingTipCategory, page, PAGE_SIZE);
+            } else if (sort.equals("LIKES")) {
+                return cookingTipRepository.findByCategoryOrderByLikeCountDesc(cookingTipCategory, page, PAGE_SIZE);
+            } else {
+                return null;
+            }
         }
     }
 
     // 페이징 처리
-    public Map<String, Object> setPage(int page) {
-        Long totalCount = cookingTipRepository.countAll(); // 전체 요리팁 개수
+    public Map<String, Object> setPage(String category, int page) {
+        Long totalCount = null; // 전체 요리팁 개수
+        if (category.equals("ALL")) {
+            totalCount = cookingTipRepository.countAll();
+        } else {
+            CookingTipCategory cookingTipCategory = CookingTipCategory.fromString(category);
+            totalCount = cookingTipRepository.countByCategory(cookingTipCategory);
+        }
+
         int totalPage = (int) Math.ceil((double) totalCount / PAGE_SIZE); // 전체 페이지 수, 소수점 올림
 
         // 페이징 버튼
