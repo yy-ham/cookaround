@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/common/header.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="" defer></script>
+</head>
+<body>
+    <header th:fragment="header">
+        <nav>
+            <ul id="menu-1">
+                <li>
+                    <a href="/">
+                        <img src="" alt="요리조리쿡">
+                    </a>
+                </li>
+                <li></li>
+                <li>
+                    <a href="">레시피</a>
+                </li>
+                <li>
+                    <a href="">냉장고 파먹기</a>
+                </li>
+                <li>
+                    <a href="/cooking-tips">요리팁</a>
+                </li>
+                <li>
+                    <a href="">식재료</a>
+                </li>
+            </ul>
+            <ul id="menu-2">
+                <li>
+                    <div id="search-container">
+                        <input id="search-box" placeholder="검색">
+                        <button type="submit" id="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a href="/members/join">회원가입</a>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a href="/members/login">로그인</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href="">
+                      <img src="" alt="프로필">
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href="/members/logout">로그아웃</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>
