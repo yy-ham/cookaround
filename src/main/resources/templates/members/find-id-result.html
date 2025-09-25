@@ -6,9 +6,12 @@
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <title>아이디 찾기</title>
   <link rel="stylesheet" href="/css/members/find-id-result.css">
+  <link rel="stylesheet" href="/css/common/header.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
+  <div th:replace="~{common/header :: header}"></div>
+
   <div id="container">
     <h1>아이디 찾기</h1>
 
