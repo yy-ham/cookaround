@@ -209,4 +209,9 @@ public class MemberController {
         return "message-response";
     }
 
+    // 마이페이지
+    @GetMapping({"/mypage", "/mypage/posts"})
+    public String mypage() {
+        return "members/mypage";
+    }
 }
