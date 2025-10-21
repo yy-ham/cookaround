@@ -16,7 +16,7 @@
             <ul id="menu-1">
                 <li>
                     <a href="/">
-                        <img src="" alt="요리조리쿡">
+                        <b>요리조리쿡</b>
                     </a>
                 </li>
                 <li></li>
@@ -51,8 +51,8 @@
                     <a href="/members/login">로그인</a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
-                    <a href="">
-                      <img src="" alt="프로필">
+                    <a href="/members/mypage">
+                      <img th:src="@{'/uploads/profile/'+${profile}}" alt="프로필 이미지" width="30">
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
