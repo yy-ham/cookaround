@@ -2,6 +2,7 @@ package com.project.cookaround.common.security;
 
 import com.project.cookaround.domain.member.entity.Member;
 import com.project.cookaround.domain.member.repository.MemberRepository;
+import com.project.cookaround.domain.member.service.MemberService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    public CustomUserDetailsService(MemberRepository memberRepository) {
+    public CustomUserDetailsService(MemberRepository memberRepository, MemberService memberService) {
         this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
     @Override
@@ -26,7 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(
                 member.get().getId(),
                 member.get().getLoginId(),
-                member.get().getPassword()
+                member.get().getPassword(),
+                member.get().getProfile()
         );
     }
 
