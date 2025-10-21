@@ -1,0 +1,79 @@
+#container {
+    margin: 10%;
+    border: 1px solid black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#profile-container {
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    display: inline-block;
+    float: left;
+}
+
+#profile {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+}
+
+#profile img {
+    border-radius: 50%;
+}
+
+#change-profile-btn {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+    padding: 4px 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#login-id {
+    text-align: center;
+    display: block;
+    margin-top: 0;
+}
+
+/* 요약 박스 */
+#summary-container {
+    border: 1px solid gray;
+    display: inline-block;
+    width: 1000px;
+    height: 230px;
+    margin-left: 50px;
+}
+
+/* 4개의 요약 div를 감싸는 wrapper */
+#summary-wrapper {
+    display: flex;
+    align-items: flex-start;  /* 상단 정렬 */
+    gap: 40px;                /* 항목 간 균일한 간격 */
+    margin-top: 10px;
+}
+
+#summary-wrapper > div {
+    flex: 1;          /* 모든 div 동일 폭 */
+    text-align: center;
+    padding: 0;       /* padding 제거로 border와 텍스트 간격 최소화 */
+    position: relative;
+}
+
+/* 세로선 설정: 마지막 div에는 제거 */
+#summary-wrapper > div:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.summary-item {
+    width: 20px;
+}

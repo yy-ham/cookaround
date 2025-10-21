@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="/css/common/header.css">
+    <link rel="stylesheet" href="/css/members/mypage.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="" defer></script>
+</head>
+<body>
+    <!-- 공통 헤더 -->
+    <div th:replace="~{common/header :: header}"></div>
+
+    <!-- 마이페이지 -->
+    <div id="container">
+        <h1>
+            <a href="/members/mypage">마이페이지</a>
+        </h1>
+
+        <!-- 프로필 이미지 변경 -->
+        <div id="profile-container">
+            <div id="profile">
+                <img src="" alt="프로필 이미지" width="100">
+                <button id="change-profile-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                        <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z"/>
+                        <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+                    </svg>
+                </button>
+            </div>
+            <h3 id="login-id">로그인 아이디</h3>
+        </div>
+
+        <!-- 내가 쓴 글/후기 요약 박스 -->
+        <div id="summary-container">
+            <h2>내가 쓴 글/후기</h2>
+            <hr>
+
+            <div id="summary-wrapper">
+                <div id="recipe-summary" class="summary-item">
+                    <h3>레시피</h3>
+                    <div id="recipe-cnt" th:text="0개"></div>
+                </div>
+
+                <div id="cooking-tip-summary" class="summary-item">
+                    <h3>요리팁</h3>
+                    <div id="cooking-tip-cnt" th:text="0개"></div>
+                </div>
+
+                <div id="review-summary" class="summary-item">
+                    <h3>후기</h3>
+                    <div id="review-cnt" th:text="0개"></div>
+                </div>
+
+                <div id="rate-summary" class="summary-item">
+                    <h3>내 별점평균</h3>
+                    <div id="star-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                    </div>
+                    <div id="rate-avg" th:text="4.5"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 메뉴 -->
+        <div id="menu-container">
+            <ul id="menu">
+                <li class="menu-item">내가 쓴 글/후기</li>
+                <li class="menu-item">회원정보</li>
+                <li class="menu-item">좋아요</li>
+                <li class="menu-item">문의내역</li>
+                <li class="menu-item">회원탈퇴</li>
+            </ul>
+        </div>
+
+        <!-- 게시글 박스 -->
+        <div id="post-container">
+            <nav>
+                <ul>
+                    <li>레시피</li>
+                    <li>요리팁</li>
+                    <li>후기</li>
+                </ul>
+            </nav>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">카테고리</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성일자</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>한식</td>
+                    <td>콩나물 무침</td>
+                    <td>2025-10-21</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <!-- end of #container -->
+</body>
+</html>
