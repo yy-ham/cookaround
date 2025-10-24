@@ -1,5 +1,6 @@
 package com.project.cookaround.domain.member.controller;
 
+import com.project.cookaround.common.security.CustomUserDetails;
 import com.project.cookaround.domain.member.dto.MemberRequestDto;
 import com.project.cookaround.domain.member.dto.MemberResponseDto;
 import com.project.cookaround.domain.member.dto.MessageResponseDto;
@@ -11,10 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -211,7 +214,18 @@ public class MemberController {
 
     // 마이페이지
     @GetMapping({"/mypage", "/mypage/posts"})
-    public String mypage() {
+    public String mypage(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        if (userDetails != null) {
+            model.addAttribute("loginId", userDetails.getUsername());
+        }
         return "members/mypage";
+    }
+
+    // 프로필 이미지 변경
+    @PostMapping("/mypage/profile")
+    public String updateProfile(@AuthenticationPrincipal CustomUserDetails userDetails, MultipartFile newProfile,
+                                @RequestParam(defaultValue="false") boolean resetDefault) {
+        memberService.updateProfile(userDetails.getId(), newProfile, resetDefault);
+        return "redirect:/members/mypage";
     }
 }

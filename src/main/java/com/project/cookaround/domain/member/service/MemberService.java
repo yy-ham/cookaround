@@ -5,8 +5,14 @@ import com.project.cookaround.domain.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class MemberService {
@@ -57,6 +63,61 @@ public class MemberService {
                 .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
         member.setPassword(resetPasswordFrom.getPassword());
         return member.getId();
+    }
+
+    // 프로필 이미지 가져오기
+    public String getProfile(Long memberId) {
+        Member member = memberRepository.findOne(memberId)
+                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+        return member.getProfile();
+    }
+
+    // 프로필 이미지 변경
+    @Transactional
+    public void updateProfile(Long memberId, MultipartFile newProfile, boolean resetDefault) {
+        Member member = memberRepository.findOne(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        Path filePath = Paths.get("src/main/resources/static/uploads/profile");
+        String originalName = newProfile.getOriginalFilename();
+        String fileName = UUID.randomUUID() + "_" + originalName;
+        Path storePath = filePath.resolve(fileName);
+        String oldProfile = member.getProfile();
+
+        if (resetDefault) {
+            // 1) 커스텀 프로필 (old) -> 기본 프로필 (프로필 삭제 버튼)
+            member.setProfile("default.jpg"); // DB에 기본 프로필 파일명 저장
+            deleteOldProfile(filePath, oldProfile); // 이전 프로필 파일 삭제
+
+        } else {
+            if (oldProfile.equals("default.jpg")) {
+                // 2) 기본 프로필 -> 커스텀 프로필 (new)
+                saveNewProfile(newProfile, storePath); // 신규 프로필 파일 저장
+                member.setProfile(fileName); // DB에 신규 프로필 파일명 저장
+
+            } else {
+                // 3) 커스텀 프로필 (old) -> 커스텀 프로필 (new)
+                saveNewProfile(newProfile, storePath); // 신규 프로필 파일 저장
+                member.setProfile(fileName); // DB에 신규 프로필 파일명 저장
+
+                deleteOldProfile(filePath, oldProfile); // 이전 프로필 파일 삭제
+            }
+        }
+    }
+
+    // 이전 프로필 파일 삭제
+    private void deleteOldProfile(Path filePath, String oldProfile) {
+        File file = new File(String.valueOf(filePath), oldProfile);
+        file.delete();
+    }
+
+    // 신규 프로필 파일 저장
+    private void saveNewProfile(MultipartFile newProfile, Path storePath) {
+        try {
+            newProfile.transferTo(storePath);
+        } catch (IOException e) {
+            throw new RuntimeException("프로필 사진 저장을 실패했습니다.");
+        }
     }
 
 }
