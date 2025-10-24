@@ -13,7 +13,7 @@ a {
     width: 200px;
     height: 200px;
     text-align: center;
-    display: inline-block;
+    display: block;
     float: left;
 }
 
@@ -82,7 +82,6 @@ a {
     padding: 20px;          /* 여백 추가 (선택사항) */
 }
 
-
 #modal-profile img {
     border-radius: 50%;
 }
@@ -95,8 +94,8 @@ a {
 #summary-container {
     border: 1px solid gray;
     display: inline-block;
-    width: 1000px;
-    height: 230px;
+    width: 1200px;
+    height: 200px;
     margin-left: 50px;
 }
 
@@ -122,4 +121,20 @@ a {
 
 .summary-item {
     width: 20px;
+}
+
+/* 메뉴 */
+#menu-container {
+    border: 1px solid black;
+    width: 200px;
+    height: 600px;
+    display: inline-block;
+}
+
+/* 게시글 */
+#post-container {
+    border: 1px solid black;
+    display: inline-block;
+    width: 1200px;
+    height: 600px;
 }
