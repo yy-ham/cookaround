@@ -52,7 +52,7 @@
                 </li>
                 <li sec:authorize="isAuthenticated()">
                     <a href="/members/mypage">
-                      <img th:src="@{'/uploads/profile/'+${profile}}" alt="프로필 이미지" width="30">
+                      <img th:src="@{'/uploads/profile/'+${profile}}" alt="프로필 이미지" id="header-profile">
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()">

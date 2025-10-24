@@ -59,3 +59,9 @@ header nav ul li a {
     background-color: transparent;
     cursor: pointer;
 }
+
+#header-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
