@@ -88,6 +88,7 @@
 <h3>📌트러블슈팅</h3>
 <ul>
   <li>아이디 찾기 후 이메일 인증 없이 비밀번호 재설정 기능 구현하기 [https://hotgamza.tistory.com/88]</li>
+  <li>JPA DB 조회 결과 없을 때 처리하기 [https://hotgamza.tistory.com/98]</li>
   <li>요리팁 등록 후 이미지 바로 안 보이는 문제 해결하기 [https://hotgamza.tistory.com/108]</li>
 </ul>
 
@@ -194,6 +195,7 @@
   <br>
   <b>📌트러블슈팅</b>
   <ul>
+    <li>JPA DB 조회 결과 없을 때 처리하기 [https://hotgamza.tistory.com/98]</li>
     <li>요리팁 등록 후 이미지 바로 안 보이는 문제 해결하기 [https://hotgamza.tistory.com/108]</li>
   </ul>
   <br>
