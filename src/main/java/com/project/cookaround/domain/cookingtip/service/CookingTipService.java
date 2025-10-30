@@ -178,4 +178,13 @@ public class CookingTipService {
         return deletedCookingTip.isEmpty();
     }
 
+    // 마이페이지 - 내가 쓴 글/후기, 요리팁 개수 출력
+    public Long getCookingTipCountByMemberId(Long memberId) {
+        Long cnt = cookingTipRepository.countByMemberId(memberId);
+        if (cnt != 0) {
+            return cnt;
+        }
+        return 0L;
+    }
+
 }

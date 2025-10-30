@@ -2,6 +2,7 @@ package com.project.cookaround.domain.recipe.service;
 
 import com.project.cookaround.domain.recipe.dto.RecipeDto;
 import com.project.cookaround.domain.recipe.mapper.RecipeMapper;
+import com.project.cookaround.domain.recipe.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,8 @@ import java.util.List;
 @Service
 public class RecipeService {
 
-    private final RecipeMapper recipeMapper;
+    private final RecipeMapper recipeMapper; // MyBatis
+    private final RecipeRepository recipeRepository; // JPA
 
     public List<RecipeDto> showRecipeList() {
         return recipeMapper.showRecipeList();
@@ -25,6 +27,15 @@ public class RecipeService {
     // 레시피 상세 페이지
     public String showRecipeDetail(String recipeId) {
         return recipeMapper.showRecipeDetail(recipeId);
+    }
+
+    // 마이페이지 - 내가 쓴 글/후기, 레시피 개수 출력
+    public Long getRecipeCountByMemberId(Long memberId) {
+        Long cnt = recipeRepository.countByMemberId(memberId);
+        if (cnt != 0) {
+            return cnt;
+        }
+        return 0L;
     }
 
 }

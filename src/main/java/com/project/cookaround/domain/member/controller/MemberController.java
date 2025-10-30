@@ -1,12 +1,15 @@
 package com.project.cookaround.domain.member.controller;
 
 import com.project.cookaround.common.security.CustomUserDetails;
+import com.project.cookaround.domain.cookingtip.service.CookingTipService;
 import com.project.cookaround.domain.member.dto.MemberRequestDto;
 import com.project.cookaround.domain.member.dto.MemberResponseDto;
 import com.project.cookaround.domain.member.dto.MessageResponseDto;
 import com.project.cookaround.domain.member.entity.EmailVerificationResult;
 import com.project.cookaround.domain.member.service.EmailVerificationService;
 import com.project.cookaround.domain.member.service.MemberService;
+import com.project.cookaround.domain.recipe.service.RecipeService;
+import com.project.cookaround.domain.review.service.ReviewService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +33,9 @@ public class MemberController {
     private final MemberService memberService;
     private final EmailVerificationService emailVerificationService;
     private final PasswordEncoder passwordEncoder;
+    private final RecipeService recipeService;
+    private final CookingTipService cookingTipService;
+    private final ReviewService reviewService;
 
     @GetMapping("/join")
     public String joinForm(Model model) {
@@ -217,7 +223,15 @@ public class MemberController {
     public String mypage(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
         if (userDetails != null) {
             model.addAttribute("loginId", userDetails.getUsername());
+
+            // 내가 쓴 글/후기 요약 박스
+            Long memberId = userDetails.getId();
+            model.addAttribute("recipeCount", recipeService.getRecipeCountByMemberId(memberId));
+            model.addAttribute("cookingTipCount", cookingTipService.getCookingTipCountByMemberId(memberId));
+            model.addAttribute("reviewCount", reviewService.getReviewCountByMemberId(memberId));
+            model.addAttribute("reviewAverage", reviewService.getAverageRatingByMemberId(memberId));
         }
+
         return "members/mypage";
     }
 
@@ -228,4 +242,5 @@ public class MemberController {
         memberService.updateProfile(userDetails.getId(), newProfile, resetDefault);
         return "redirect:/members/mypage";
     }
+
 }

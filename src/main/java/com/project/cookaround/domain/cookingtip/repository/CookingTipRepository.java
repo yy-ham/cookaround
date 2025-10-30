@@ -107,4 +107,10 @@ public class CookingTipRepository {
                 .getSingleResult();
     }
 
+    public Long countByMemberId(Long memberId) {
+        return em.createQuery("select count(c) from CookingTip c where c.member.id = :memberId", Long.class)
+                .setParameter("memberId", memberId)
+                .getSingleResult();
+    }
+
 }
