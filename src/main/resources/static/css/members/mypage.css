@@ -123,6 +123,14 @@ a {
     width: 20px;
 }
 
+#star-img {
+    display: inline-block;
+}
+
+#rate-avg {
+    display: inline-block;
+}
+
 /* 메뉴 */
 #menu-container {
     border: 1px solid black;
