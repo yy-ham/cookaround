@@ -37,6 +37,11 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
         );
 
+        http.authorizeHttpRequests((auth) -> auth
+                .requestMatchers("/members/mypage/**").authenticated() // 로그인 필요
+                .anyRequest().permitAll()
+        );
+
         http.userDetailsService(userDetailsService);
         return http.build();
     }
