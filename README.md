@@ -89,6 +89,7 @@
 <ul>
   <li>아이디 찾기 후 이메일 인증 없이 비밀번호 재설정 기능 구현하기 [https://hotgamza.tistory.com/88]</li>
   <li>JPA DB 조회 결과 없을 때 처리하기 [https://hotgamza.tistory.com/98]</li>
+  <li>다중 이미지 파일 업로드 기능 구현하기 [https://hotgamza.tistory.com/105]</li>
   <li>요리팁 등록 후 이미지 바로 안 보이는 문제 해결하기 [https://hotgamza.tistory.com/108]</li>
   <li>공통 헤더에 로그인 사용자의 프로필 이미지 표시하기 [https://hotgamza.tistory.com/115]</li>
 </ul>
@@ -197,6 +198,7 @@
   <b>📌트러블슈팅</b>
   <ul>
     <li>JPA DB 조회 결과 없을 때 처리하기 [https://hotgamza.tistory.com/98]</li>
+    <li>다중 이미지 파일 업로드 기능 구현하기 [https://hotgamza.tistory.com/105]</li>
     <li>요리팁 등록 후 이미지 바로 안 보이는 문제 해결하기 [https://hotgamza.tistory.com/108]</li>
   </ul>
   <br>
