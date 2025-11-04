@@ -25,6 +25,7 @@ a {
 
 #profile img {
     border-radius: 50%;
+    object-fit: cover
 }
 
 #edit-profile-btn {
@@ -84,6 +85,7 @@ a {
 
 #modal-profile img {
     border-radius: 50%;
+    object-fit: cover
 }
 
 #upload-file {
