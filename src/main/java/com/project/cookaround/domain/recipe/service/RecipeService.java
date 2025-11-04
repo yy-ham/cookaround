@@ -1,6 +1,7 @@
 package com.project.cookaround.domain.recipe.service;
 
 import com.project.cookaround.domain.recipe.dto.RecipeDto;
+import com.project.cookaround.domain.recipe.entity.Recipe;
 import com.project.cookaround.domain.recipe.mapper.RecipeMapper;
 import com.project.cookaround.domain.recipe.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,11 @@ public class RecipeService {
             return cnt;
         }
         return 0L;
+    }
+
+    // 마이페이지 - 내가 쓴 글/후기, 레시피 조회
+    public List<Recipe> getRecipeByMemberId(Long MemberId) {
+        return recipeRepository.findByMemberId(MemberId);
     }
 
 }

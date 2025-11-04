@@ -140,22 +140,24 @@
                     <li>후기</li>
                 </ul>
             </nav>
-            <table class="table">
+
+            <!-- 레시피 -->
+            <table class="table" id="post-recipe" th:if="${recipes}">
                 <thead>
-                <tr>
-                    <th scope="col">번호</th>
-                    <th scope="col">카테고리</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">작성일자</th>
-                </tr>
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">카테고리</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성일자</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>한식</td>
-                    <td>콩나물 무침</td>
-                    <td>2025-10-21</td>
-                </tr>
+                    <tr th:each="recipe : ${recipes}">
+                        <td th:text="${recipe.id}"></td>
+                        <td th:text="${recipe.category.description}"></td>
+                        <td th:text="${recipe.title}"></td>
+                        <td th:text="${#temporals.format(recipe.createdAt, 'yyyy-MM-dd')}"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -3,12 +3,11 @@ package com.project.cookaround.domain.recipe.entity;
 import com.project.cookaround.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 @Table(name = "recipe")
 public class Recipe {
 

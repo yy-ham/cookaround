@@ -8,6 +8,8 @@ import com.project.cookaround.domain.member.dto.MessageResponseDto;
 import com.project.cookaround.domain.member.entity.EmailVerificationResult;
 import com.project.cookaround.domain.member.service.EmailVerificationService;
 import com.project.cookaround.domain.member.service.MemberService;
+import com.project.cookaround.domain.recipe.dto.RecipeResponseDto;
+import com.project.cookaround.domain.recipe.entity.Recipe;
 import com.project.cookaround.domain.recipe.service.RecipeService;
 import com.project.cookaround.domain.review.service.ReviewService;
 import jakarta.servlet.http.Cookie;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -221,16 +225,22 @@ public class MemberController {
     // 마이페이지
     @GetMapping({"/mypage", "/mypage/posts"})
     public String mypage(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        if (userDetails != null) {
-            model.addAttribute("loginId", userDetails.getUsername());
+        // 로그인 아이디 표시
+        model.addAttribute("loginId", userDetails.getUsername());
 
-            // 내가 쓴 글/후기 요약 박스
-            Long memberId = userDetails.getId();
-            model.addAttribute("recipeCount", recipeService.getRecipeCountByMemberId(memberId));
-            model.addAttribute("cookingTipCount", cookingTipService.getCookingTipCountByMemberId(memberId));
-            model.addAttribute("reviewCount", reviewService.getReviewCountByMemberId(memberId));
-            model.addAttribute("reviewAverage", reviewService.getAverageRatingByMemberId(memberId));
+        // 내가 쓴 글/후기 요약 박스
+        Long memberId = userDetails.getId();
+        model.addAttribute("recipeCount", recipeService.getRecipeCountByMemberId(memberId));
+        model.addAttribute("cookingTipCount", cookingTipService.getCookingTipCountByMemberId(memberId));
+        model.addAttribute("reviewCount", reviewService.getReviewCountByMemberId(memberId));
+        model.addAttribute("reviewAverage", reviewService.getAverageRatingByMemberId(memberId));
+
+        // 내가 쓴 글/후기 (처음 화면)
+        List<RecipeResponseDto> recipes = new ArrayList<>();
+        for (Recipe recipe : recipeService.getRecipeByMemberId(memberId)) {
+            recipes.add(RecipeResponseDto.fromEntity(recipe));
         }
+        model.addAttribute("recipes", recipes);
 
         return "members/mypage";
     }
