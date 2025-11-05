@@ -149,6 +149,24 @@ a {
     height: 600px;
 }
 
+#post-menu {
+    list-style: none;
+}
+
+.post-menu-item {
+    display: inline-block;
+}
+
+.post-menu-item:hover {
+    cursor: pointer;
+}
+
+/* 활성화 */
+.active {
+    color: orange;
+    font-weight: bold;
+}
+
 table {
     border-collapse: separate; /* 필수! */
     border-spacing: 100px 0;    /* 가로 20px, 세로 0px */

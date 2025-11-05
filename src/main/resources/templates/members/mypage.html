@@ -134,15 +134,14 @@
         <!-- 게시글 박스 -->
         <div id="post-container">
             <nav>
-                <ul>
-                    <li>레시피</li>
-                    <li>요리팁</li>
-                    <li>후기</li>
+                <ul id="post-menu">
+                    <li id="recipe-list" class="post-menu-item">레시피</li>
+                    <li id="cooking-tip-list" class="post-menu-item">요리팁</li>
+                    <li id="review-list" class="post-menu-item">후기</li>
                 </ul>
             </nav>
 
-            <!-- 레시피 -->
-            <table class="table" id="post-recipe" th:if="${recipes}">
+            <table id="post-table">
                 <thead>
                     <tr>
                         <th scope="col">번호</th>
@@ -151,14 +150,7 @@
                         <th scope="col">작성일자</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="recipe : ${recipes}">
-                        <td th:text="${recipe.id}"></td>
-                        <td th:text="${recipe.category.description}"></td>
-                        <td th:text="${recipe.title}"></td>
-                        <td th:text="${#temporals.format(recipe.createdAt, 'yyyy-MM-dd')}"></td>
-                    </tr>
-                </tbody>
+                <tbody id="post-table-body"></tbody>
             </table>
         </div>
     </div> <!-- end of #container -->
