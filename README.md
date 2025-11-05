@@ -281,14 +281,25 @@
 <details open>
    <summary><h3>❤ 좋아요</h3></summary>
    <ul>
-      <li>요리팁 좋아요 (목록, 상세)</li>
-      <li>Ajax 방식 활용</li>
+      <li>요리팁 목록/상세 화면에서 요리팁 등록 및 삭제
       <li>좋아요 버튼 클릭시 버튼 UI 변경</li>
       <li>
          <details>
             <summary><b>💻 구현 화면</b></summary>
             <ul>
-               <li></li>
+               <li>
+                  <b>요리팁 목록 화면 좋아요</b>
+                  <p>
+                     <img src="https://github.com/user-attachments/assets/65ec95be-9ab6-4c1b-a1da-48b0e1e17837" />
+                  </p>
+               </li>
+               <li>
+                  <b>요리팁 상세 화면 좋아요</b>
+                  <p>
+                     <img src="https://github.com/user-attachments/assets/b838a270-8a5d-4342-b26c-eedf5a982d73" />
+                     <img src="https://github.com/user-attachments/assets/69ebcb4a-221f-48c8-9c82-06ff7b9ca183" />
+                  </p>
+               </li>
             </ul>
          </details>
       </li>
@@ -299,16 +310,24 @@
 <details open>
    <summary><h3>🖼 프로필 사진 변경</h3></summary>
    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
+      <li>변경 버튼 클릭 시 모달 표시</li>
+      <li>프로필 사진 변경 및 삭제</li>
       <li>
          <details>
-            <smmary><b>💻 구현 화면</b></smmary>
+            <summary><b>💻 구현 화면</b></summary>
             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
+               <li>
+                  <b>마이페이지 프로필 사진 화면</b>
+                  <p>
+                     <img src="https://github.com/user-attachments/assets/9dd21dfb-9239-4125-9fe4-e502417a6aa9" />
+                  </p>
+               </li>
+               <li>
+                  <b>프로필 사진 변경 모달 화면</b>
+                  <p>
+                     <img src="https://github.com/user-attachments/assets/87d9a53b-63e5-4886-b14c-c4c8569bd696" />
+                  </p>
+               </li>
             </ul>
          </details>
       </li>
