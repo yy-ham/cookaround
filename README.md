@@ -65,7 +65,7 @@
 
 ## 🗄 ER 다이어그램
 <img alt="Image" src="https://github.com/user-attachments/assets/d6182c58-ecee-4dd3-90d5-6246345ff55c" />
-<br>
+<br><br>
 
 ## 💡 트러블슈팅
 - 아이디 찾기 후 이메일 인증 없이 비밀번호 재설정 기능 구현하기 [https://hotgamza.tistory.com/88]
@@ -90,7 +90,7 @@
 <br>
 
 <details open>
-  <summary><b>📝 회원가입</b></summary>
+  <summary><h3>📝 회원가입</h3></summary>
   <ul>
     <li>아이디 유효성 검사 (required, 형식, 중복 회원 여부)</li>
     <li>비밀번호 유효성 검사 (required, 형식, 비밀번호 확인과 일치 여부)</li>
@@ -98,7 +98,7 @@
     <li>인증코드 이메일 전송 및 검증, 인증 유효시간 설정</li>
     <li>
       <details>
-        <summary><b>구현 화면</b></summary>
+        <summary><b>💻 구현 화면</b></summary>
           <ul>
             <li>
               <b>회원가입 화면</b>
@@ -121,7 +121,7 @@
 <br>
 
 <details open>
-  <summary><b>🔐 로그인</b></summary>
+  <summary><h3>🔐 로그인</h3></summary>
   <ul>
     <li>로그인 및 로그아웃</li>
     <li>아이디 저장</li>
@@ -129,7 +129,7 @@
     <li>로그인 실패 시, 오류 메시지 출력</li>
     <li>
       <details>
-        <summary><b>구현 화면</b></summary>
+        <summary><b>💻 구현 화면</b></summary>
         <ul>
           <li>
             <b>로그인 화면</b>
@@ -146,7 +146,7 @@
 <br>
 
 <details open>
-  <summary><b>🔑 아이디/비밀번호 찾기 및 비밀번호 재설정</b></summary>
+  <summary><h3>🔑 아이디/비밀번호 찾기 및 비밀번호 재설정</h3></summary>
   <ul>
     <li>아이디 유효성 검사</li>
     <li>이메일 유효성 검사</li>
@@ -163,7 +163,7 @@
     </li>
     <li>
       <details>
-        <summary><b>구현 화면</b></summary>
+        <summary><b>💻 구현 화면</b></summary>
         <ul>
           <li>
             <b>아이디 찾기 화면</b>
@@ -199,60 +199,119 @@
 <br>
 
 <details open>
-  <summary><b>🍳 요리팁</b></summary>
-  <ul>
-    <li>요리팁 목록 조회 (정렬, 카테고리별 조회, 페이징 처리)</li>
-    <li>요리팁 상세 조회</li>
-    <li>요리팁 등록/수정/삭제</li>
-    <li>요리팁 좋아요 (목록, 상세)</li>
-    <li>이미지 파일 다중 등록 및 미리보기 기능</li>
-  </ul>
-  <br>
-  <b>📌트러블슈팅</b>
-  <ul>
-    <li>JPA DB 조회 결과 없을 때 처리하기 [https://hotgamza.tistory.com/98]</li>
-    <li>다중 이미지 파일 업로드 기능 구현하기 [https://hotgamza.tistory.com/105]</li>
-    <li>요리팁 등록 후 이미지 바로 안 보이는 문제 해결하기 [https://hotgamza.tistory.com/108]</li>
-  </ul>
-  <br>
-  <b>요리팁 목록 화면</b>
-  <p>
-    <img width="1920" height="1488" alt="Image" src="https://github.com/user-attachments/assets/a356e239-5e31-40aa-a53f-975496f09306" />
-  </p>
-
-  <b>요리팁 상세 화면</b>
-  <p>
-    <img width="1920" height="1397" alt="Image" src="https://github.com/user-attachments/assets/f4c601f0-abda-4405-9a82-a5083e5d4199" />
-  </p>
-  
-  <b>요리팁 등록 화면</b>
-  <p>
-    <img width="1920" height="1467" alt="Image" src="https://github.com/user-attachments/assets/91946333-5675-4ea7-929b-bda94f16141a" />
-  </p>
-  
-  <b>요리팁 수정 화면</b>
-  <p>
-    <img width="1920" height="1467" alt="Image" src="https://github.com/user-attachments/assets/a6cf7428-17ca-4aac-aa76-c16b1f5a5ae3" />
-  </p>
-  
-  <b>다중 이미지 업로드 및 미리보기 기능</b>
-  <p>
-    <img width="849" height="99" alt="Image" src="https://github.com/user-attachments/assets/1b3daa67-a54e-4b2b-bd18-f2ed0da836c5" />
-  </p>
+   <summary><h3>🍳 요리팁</h3></summary>
+   <ul>
+      <li>요리팁 목록 조회 (정렬, 카테고리별 조회, 페이징 처리)</li>
+      <li>요리팁 상세 조회</li>
+      <li>요리팁 등록/수정/삭제</li>
+      <li>
+         <details open>
+         <summary><b>💡 트러블슈팅</b></summary>
+            <ul>
+               <li>JPA DB 조회 결과 없을 때 처리하기 [https://hotgamza.tistory.com/98]</li>
+               <li>요리팁 등록 후 이미지 바로 안 보이는 문제 해결하기 [https://hotgamza.tistory.com/108]</li>
+            </ul>
+         </details>
+      </li>
+      <li>
+         <details>
+            <summary><b>💻 구현 화면</b></summary>
+            <ul>
+               <li>
+                  <b>요리팁 목록 화면</b>
+                  <p>
+                     <img width="1920" height="1488" alt="Image" src="https://github.com/user-attachments/assets/a356e239-5e31-40aa-a53f-975496f09306" />
+                  </p>
+               </li>
+               <li>
+                  <b>요리팁 상세 화면</b>
+                  <p>
+                     <img width="1920" height="1397" alt="Image" src="https://github.com/user-attachments/assets/f4c601f0-abda-4405-9a82-a5083e5d4199" />
+                  </p>
+               </li>
+               <li>
+                  <b>요리팁 등록 화면</b>
+                  <p>
+                     <img width="1920" height="1467" alt="Image" src="https://github.com/user-attachments/assets/91946333-5675-4ea7-929b-bda94f16141a" />
+                  </p>
+               </li>
+               <li>
+                  <b>요리팁 수정 화면</b>
+                  <p>
+                     <img width="1920" height="1467" alt="Image" src="https://github.com/user-attachments/assets/a6cf7428-17ca-4aac-aa76-c16b1f5a5ae3" />
+                  </p>
+               </li>
+            </ul>
+         </details>
+      </li>
+   </ul>
 </details>
 <br>
 
 <details open>
-  <summary><b>📤 다중 이미지 파일 업로드</b></summary>
+   <summary><h3>📤 다중 이미지 파일 업로드 및 이미지 미리보기</h3></summary>
+   <ul>
+      <li>요리팁 등록 시 다중 이미지 파일 업로드</li>
+      <li>업로드한 이미지 미리보기 및 삭제</li>
+      <li>
+         <details open>
+            <summary><b>💡 트러블슈팅</b></summary>
+            <ul>
+               <li>다중 이미지 파일 업로드 기능 구현하기 [https://hotgamza.tistory.com/105]</li>
+            </ul>
+         </details>
+      </li>
+      <li>
+         <details>
+            <summary><b>💻 구현 화면</b></summary>
+            <ul>
+               <li>
+                  <b>다중 이미지 업로드 및 미리보기 화면</b>
+                  <p>
+                     <img width="849" height="99" alt="Image" src="https://github.com/user-attachments/assets/1b3daa67-a54e-4b2b-bd18-f2ed0da836c5" />
+                  </p>
+               </li>
+            </ul>
+         </details>
+      </li>   
+   </ul>
 </details>
 <br>
 
 <details open>
-  <summary><b>❤ 좋아요</b></summary>
+   <summary><h3>❤ 좋아요</h3></summary>
+   <ul>
+      <li>요리팁 좋아요 (목록, 상세)</li>
+      <li>Ajax 방식 활용</li>
+      <li>좋아요 버튼 클릭시 버튼 UI 변경</li>
+      <li>
+         <details>
+            <summary><b>💻 구현 화면</b></summary>
+            <ul>
+               <li></li>
+            </ul>
+         </details>
+      </li>
+   </ul>
 </details>
 <br>
 
 <details open>
-  <summary><b>🖼 프로필 사진 변경</b></summary>
+   <summary><h3>🖼 프로필 사진 변경</h3></summary>
+   <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li>
+         <details>
+            <smmary><b>💻 구현 화면</b></smmary>
+            <ul>
+               <li></li>
+               <li></li>
+               <li></li>
+            </ul>
+         </details>
+      </li>
+   </ul>
 </details>
 <br>
