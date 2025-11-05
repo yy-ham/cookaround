@@ -64,7 +64,7 @@
 <br>
 
 ## 🗄 ER 다이어그램
-<img src="https://github.com/user-attachments/assets/67afe794-018f-4105-a076-01c8d3e49c97"/>
+<img alt="Image" src="https://github.com/user-attachments/assets/d6182c58-ecee-4dd3-90d5-6246345ff55c" />
 <br>
 
 ## 💡 트러블슈팅
