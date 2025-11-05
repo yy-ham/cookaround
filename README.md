@@ -17,7 +17,7 @@
 #### 💻 Back-end
 - **Language**: Java 18
 - **Framework**: SpringBoot 3.4.4
-- **DB**: MariaDB 11.4.5
+- **Database**: MariaDB 11.4.5
 - **ORM**: JPA, MyBatis
 - **Template Engine**: Thymeleaf
 
@@ -25,6 +25,10 @@
 - **Language**: JavaScript
 - **Library**: JQuery 3.6.3, Bootstrap 5.3.7
 - **Markup & Style**: HTML5, CSS3</li>
+
+#### 💻 Infrastructure
+- **Server**: AWS EC2
+- **Database**: AWS RDS (MariaDB)
 <br>
 
 ## 🗺 서비스 흐름도</h2>
