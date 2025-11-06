@@ -31,7 +31,7 @@
 - **Database**: AWS RDS (MariaDB)
 <br>
 
-## 🗺 서비스 흐름도</h2>
+## 🗺 서비스 흐름도
 <pre>
 [메인 페이지]
    ├── [제철식재료]
@@ -68,7 +68,7 @@
 <br>
 
 ## 🗄 ER 다이어그램
-<img alt="Image" src="https://github.com/user-attachments/assets/d6182c58-ecee-4dd3-90d5-6246345ff55c" />
+<img alt="Image" src="https://github.com/user-attachments/assets/d6182c58-ecee-4dd3-90d5-6246345ff55c"/>
 <br><br>
 
 ## 💡 트러블슈팅
