@@ -24,7 +24,7 @@
 #### 💻 Front-end
 - **Language**: JavaScript
 - **Library**: JQuery 3.6.3, Bootstrap 5.3.7
-- **Markup & Style**: HTML5, CSS3</li>
+- **Markup & Style**: HTML5, CSS3
 
 #### 💻 Infrastructure
 - **Server**: AWS EC2
