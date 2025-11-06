@@ -41,7 +41,7 @@ public class RecipeService {
 
     // 마이페이지 - 내가 쓴 글/후기, 레시피 조회
     public List<Recipe> getRecipeByMemberId(Long MemberId) {
-        return recipeRepository.findByMemberId(MemberId);
+        return recipeRepository.findByMemberIdOrderById(MemberId);
     }
 
 }

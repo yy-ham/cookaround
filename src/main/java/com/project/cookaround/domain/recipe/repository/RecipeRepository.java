@@ -19,8 +19,8 @@ public class RecipeRepository {
                 .getSingleResult();
     }
 
-    public List<Recipe> findByMemberId(Long memberId) {
-        return em.createQuery("select r from Recipe r where r.member.id = :memberId", Recipe.class)
+    public List<Recipe> findByMemberIdOrderById(Long memberId) {
+        return em.createQuery("select r from Recipe r where r.member.id = :memberId order by r.id desc", Recipe.class)
                 .setParameter("memberId", memberId)
                 .getResultList();
     }
