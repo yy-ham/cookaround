@@ -26,7 +26,21 @@ $(function () {
 
 
     // 내가 쓴 글/후기
-    $(document).on("click", "#recipe-list", listMyRecipe);
+    $(document).on("click", "#recipe-list", listMyRecipe); // 레시피
+    $(document).on("click", "#cooking-tip-list", listMyCookingTip); // 요리팁
+
+    // 내가 쓴 요리팁
+    function listMyCookingTip() {
+        $.ajax({
+            url: "/api/members/mypage/cooking-tips",
+            type: "GET",
+            success: function (cookingTips) {
+                $(".post-menu-item").removeClass("active");
+                $("#cooking-tip-list").addClass("active");
+                renderPost(cookingTips);
+            },
+        });
+    }
 
     // 내가 쓴 레시피
     function listMyRecipe() {
@@ -36,7 +50,7 @@ $(function () {
             success: function (recipes) {
                 $(".post-menu-item").removeClass("active");
                 $("#recipe-list").addClass("active");
-                renderPost(recipes)
+                renderPost(recipes);
             },
         });
     }

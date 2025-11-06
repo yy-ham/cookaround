@@ -187,4 +187,8 @@ public class CookingTipService {
         return 0L;
     }
 
+    // 마이페이지 - 내가 쓴 글/후기 - 요리팁 조회
+    public List<CookingTip> getCookingTipByMemberId(Long memberId) {
+        return cookingTipRepository.findByMemberIdOrderByIdDesc(memberId);
+    }
 }

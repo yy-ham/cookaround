@@ -113,4 +113,11 @@ public class CookingTipRepository {
                 .getSingleResult();
     }
 
+    // 마이페이지 - 내가 쓴 글/후기 - 요리팁 조회
+    public List<CookingTip> findByMemberIdOrderByIdDesc(Long memberId) {
+        return em.createQuery("select c from CookingTip c where c.member.id = :memberId order by c.id desc", CookingTip.class)
+                .setParameter("memberId", memberId)
+                .getResultList();
+    }
+
 }

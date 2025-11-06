@@ -4,6 +4,7 @@ import com.project.cookaround.common.security.CustomUserDetails;
 import com.project.cookaround.domain.cookingtip.dto.CookingTipDetailResponseDto;
 import com.project.cookaround.domain.cookingtip.dto.CookingTipRequestDto;
 import com.project.cookaround.domain.cookingtip.dto.CookingTipListResponseDto;
+import com.project.cookaround.domain.cookingtip.dto.CookingTipResponseDto;
 import com.project.cookaround.domain.cookingtip.entity.CookingTip;
 import com.project.cookaround.domain.cookingtip.service.CookingTipService;
 import com.project.cookaround.domain.image.dto.ImageResponseDto;
@@ -182,6 +183,18 @@ public class CookingTipController {
     @DeleteMapping("/cooking-tips/{id}")
     public boolean deleteCookingTip(@PathVariable(name = "id") Long cookingTipId) {
         return cookingTipService.deleteCookingTip(cookingTipId);
+    }
+
+    // 마이페이지 - 내가 쓴 글/후기 - 요리팁 목록 조회
+    @ResponseBody
+    @GetMapping("/api/members/mypage/cooking-tips")
+    public List<CookingTipResponseDto> listByMemberId(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<CookingTipResponseDto> cookingTips = new ArrayList<>();
+        for (CookingTip cookingTip : cookingTipService.getCookingTipByMemberId(userDetails.getId())) {
+            cookingTips.add(CookingTipResponseDto.fromEntity(cookingTip));
+        }
+
+        return cookingTips;
     }
 
 }
